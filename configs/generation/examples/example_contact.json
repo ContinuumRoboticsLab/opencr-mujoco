@@ -1,0 +1,72 @@
+{
+  "description": "CONTACT DEMO - a hanging 3-segment TDCR for the penalty-kick contact example. World-mounted upside down; gravity on.",
+  "num_segments": 3,
+  "links_per_segment": {
+    "1": 10,
+    "2": 10,
+    "3": 10
+  },
+  "segment_lengths": {
+    "1": 0.1,
+    "2": 0.1,
+    "3": 0.1
+  },
+  "radius": 0.006,
+  "mass": 0.05,
+  "joints_per_link": 2,
+  "joint_config_mode": "material",
+  "material_properties": {
+    "density": 37708,
+    "youngs_modulus": 50000000000.0,
+    "poisson_ratio": 0.3,
+    "inner_radius": 0,
+    "outer_radius": 0.0005,
+    "damping": 0.005
+  },
+  "joint_range": "-100 100",
+  "vert_joint_range": "-500 500",
+  "actuation_mode": "parallel_tendons",
+  "actuator_type": "motor",
+  "actuation_details": {
+    "segments": [
+      {
+        "number_of_tendons": 3,
+        "distance_to_backbone": 0.004
+      },
+      {
+        "number_of_tendons": 3,
+        "distance_to_backbone": 0.004
+      },
+      {
+        "number_of_tendons": 3,
+        "distance_to_backbone": 0.004
+      }
+    ]
+  },
+  "actuator_properties": {
+    "tendon_ctrlrange": "-0.05 0.05",
+    "tendon_actuator_type": "position",
+    "tendon_kp": 10000,
+    "tendon_kp_scaling": "inverse_length",
+    "tendon_kp_scale_factor": 1.0,
+    "tendon_pretension": 5.0,
+    "tendon_constraint_factor": 0.0,
+    "tendon_timeconst": "0.0",
+    "tendon_forcelimited": "true",
+    "tendon_forcerange": "-100 0"
+  },
+  "seg_offsets": [
+    0,
+    0.5236,
+    1.0472
+  ],
+  "gravity": "0 0 -9.81",
+  "plane": true,
+  "plane_style": "checkered",
+  "disable_self_collision": false,
+  "mounting": {
+    "default_type": "world",
+    "world_pos": "0 0 0.36",
+    "world_euler": "0 3.14159 0"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "test_type": "TPURodMuJoCo_1",
+  "n_values": [25, 35, 50, 70, 100],
+  "sim_hz": 1000.0,
+  "force_ramp_time": 5.0,
+  "hold_time": 2.0,
+  "output_dir": "paper_results/evaluation_results/sorosim_dynamics_tpu",
+  "reference_dir": "data/reference/sorosim/sorosim_dynamics",
+  "plot_dir": "plots",
+  "frame_conversion": {
+    "file_to_mujoco": [
+      [0,  0, 1],
+      [0, -1, 0],
+      [1,  0, 0]
+    ]
+  },
+  "generator_config": {
+    "joints_per_link": 3,
+    "joint_config_mode": "material",
+    "material_properties": {
+      "density": 1200,
+      "youngs_modulus": 70e6,
+      "poisson_ratio": 0.4,
+      "inner_radius": 0,
+      "outer_radius": 0.005,
+      "damping_ratio": 0.003
+    },
+    "actuation_mode": "none",
+    "gravity": "0 -9.81 0",
+    "plane": false,
+    "total_length": 0.4,
+    "radius": 0.005,
+    "disable_contact": true
+  },
+  "visualize": false,
+  "description": "Sorosim dynamics test for TPU rod with dual mid+tip tracking (test case 1)"
+}

@@ -1,0 +1,90 @@
+{
+  "description": "BEGINNER EXAMPLE - the TENSION-mode counterpart of example_modular. Same heterogeneous stiff-base/soft-tip robot, but the tendons are driven by MOTOR (force) actuators instead of position actuators. Use this with tension controllers (e.g. teleop configs tdcr_keyboard_modular_tension, ftdcr_taskspace_tension) that command cable FORCES directly. Generate it with:  python generate.py --config example_modular_tension --franka",
+
+  "_comment_tension": "The ONLY difference from example_modular is actuator_properties below: tendon_actuator_type is 'motor' (force control) rather than 'position' (length control). Motor actuators let a controller set cable tension directly - there is no kp / pretension / ctrlrange, only a force limit.",
+
+  "modular": true,
+  "num_segments": 3,
+
+  "_comment_library": "Reusable modules (identical to example_modular): each has its own material, geometry and color. youngs_modulus sets stiffness; damping_ratio scales damping with stiffness.",
+  "module_library": {
+    "stiff_blue": {
+      "length": 0.05,
+      "radius": 0.0125,
+      "num_links": 5,
+      "color": "0.3 0.3 0.9 1.0",
+      "material_properties": {
+        "density": 1000,
+        "youngs_modulus": 200e9,
+        "poisson_ratio": 0.3,
+        "inner_radius": 0,
+        "outer_radius": 0.001,
+        "damping_ratio": 0.05
+      }
+    },
+    "soft_red": {
+      "length": 0.05,
+      "radius": 0.0125,
+      "num_links": 5,
+      "color": "0.9 0.3 0.3 1.0",
+      "material_properties": {
+        "density": 1000,
+        "youngs_modulus": 50e9,
+        "poisson_ratio": 0.3,
+        "inner_radius": 0,
+        "outer_radius": 0.001,
+        "damping_ratio": 0.05
+      }
+    }
+  },
+
+  "_comment_segments": "Stiff base -> mixed middle -> soft tip. THREE tendons per segment (example_modular uses 4): the repo's tension controllers, e.g. ftdcr_taskspace_tension, assume 3-tendon segments for their Clark kinematics, so the tension example matches that.",
+  "segments": [
+    {
+      "_comment": "Segment 1 (base): two stiff modules.",
+      "modules": ["stiff_blue", "stiff_blue"],
+      "actuation": {"number_of_tendons": 3, "distance_to_backbone": 0.01}
+    },
+    {
+      "_comment": "Segment 2 (middle): stiff -> soft transition.",
+      "modules": ["stiff_blue", "soft_red"],
+      "actuation": {"number_of_tendons": 3, "distance_to_backbone": 0.01}
+    },
+    {
+      "_comment": "Segment 3 (tip): two soft modules.",
+      "modules": ["soft_red", "soft_red"],
+      "actuation": {"number_of_tendons": 3, "distance_to_backbone": 0.01}
+    }
+  ],
+
+  "joints_per_link": 2,
+  "joint_range": "-100 100",
+  "vert_joint_range": "-500 500",
+
+  "actuation_mode": "parallel_tendons",
+  "actuator_type": "motor",
+  "_comment_actuation": "TENSION mode: 'motor' actuators apply cable force directly. forcerange '-100 0' = pull only (negative = pulling), capped at 100 N. No kp/pretension/ctrlrange - the controller commands force, not length.",
+  "actuator_properties": {
+    "tendon_actuator_type": "motor",
+    "tendon_constraint_factor": 0.0,
+    "tendon_forcelimited": "true",
+    "tendon_forcerange": "-100 0"
+  },
+
+  "seg_offsets": [0, 0, 0],
+  "gravity": "0 0 -9.81",
+  "plane": true,
+  "plane_style": "checkered",
+  "disable_self_collision": true,
+  "enable_tdcr_collision": true,
+  "link_shape": "cylinder",
+
+  "mounting": {
+    "default_type": "franka",
+    "franka_pos": "0.075 0 -0.13055",
+    "franka_euler": "0 1.5708 0",
+    "mount_angle": 0.7854,
+    "world_pos": "0 0 0.3",
+    "world_euler": "0 0 0"
+  }
+}

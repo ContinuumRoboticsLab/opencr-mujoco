@@ -1,0 +1,97 @@
+{
+  "description": "BEGINNER EXAMPLE - a MODULAR (heterogeneous) TDCR. Instead of one uniform material, the robot is assembled from reusable 'modules' defined in module_library; each module has its own material, geometry and color. Here a stiff base grades into a soft, flexible tip. Module/segment boundaries are rigid joins. Generate it with:  python generate.py --config example_modular --franka",
+
+  "_comment_modular": "modular: true switches on the module system. With it, you list 'module_library' + per-segment 'modules' instead of the single material_properties used by the standard example.",
+  "modular": true,
+  "num_segments": 3,
+
+  "_comment_library": "=================== MODULE LIBRARY ===================  Reusable building blocks. Each module: length (m), radius (visual, m), num_links, color (RGBA), and its own material_properties (youngs_modulus in Pa sets stiffness; damping_ratio scales damping with stiffness; outer_radius sets the structural cross-section).",
+  "module_library": {
+    "stiff_blue": {
+      "length": 0.05,
+      "radius": 0.0125,
+      "num_links": 5,
+      "color": "0.3 0.3 0.9 1.0",
+      "material_properties": {
+        "density": 1000,
+        "youngs_modulus": 200e9,
+        "poisson_ratio": 0.3,
+        "inner_radius": 0,
+        "outer_radius": 0.001,
+        "damping_ratio": 0.05
+      }
+    },
+    "soft_red": {
+      "length": 0.05,
+      "radius": 0.0125,
+      "num_links": 5,
+      "color": "0.9 0.3 0.3 1.0",
+      "material_properties": {
+        "density": 1000,
+        "youngs_modulus": 50e9,
+        "poisson_ratio": 0.3,
+        "inner_radius": 0,
+        "outer_radius": 0.001,
+        "damping_ratio": 0.05
+      }
+    }
+  },
+
+  "_comment_segments": "=================== SEGMENTS ===================  Each segment is a list of modules (built tip-ward) plus its tendon actuation. Reusing modules makes the gradient obvious: stiff base -> mixed middle -> soft tip.",
+  "segments": [
+    {
+      "_comment": "Segment 1 (base): two stiff modules - resists bending.",
+      "modules": ["stiff_blue", "stiff_blue"],
+      "actuation": {"number_of_tendons": 4, "distance_to_backbone": 0.01}
+    },
+    {
+      "_comment": "Segment 2 (middle): stiff -> soft transition.",
+      "modules": ["stiff_blue", "soft_red"],
+      "actuation": {"number_of_tendons": 4, "distance_to_backbone": 0.01}
+    },
+    {
+      "_comment": "Segment 3 (tip): two soft modules - bends easily.",
+      "modules": ["soft_red", "soft_red"],
+      "actuation": {"number_of_tendons": 4, "distance_to_backbone": 0.01}
+    }
+  ],
+
+  "_comment_joints": "joints_per_link: 2 = bending about two axes. Ranges are per-joint limits in degrees.",
+  "joints_per_link": 2,
+  "joint_range": "-100 100",
+  "vert_joint_range": "-500 500",
+
+  "_comment_actuation": "Tendon actuation (same options as the standard example).",
+  "actuation_mode": "parallel_tendons",
+  "actuator_type": "motor",
+  "actuator_properties": {
+    "tendon_ctrlrange": "-0.3 0.3",
+    "tendon_actuator_type": "position",
+    "tendon_kp": 3000,
+    "tendon_kp_scaling": "inverse_length",
+    "tendon_kp_scale_factor": 1.0,
+    "tendon_pretension": 0.0,
+    "tendon_constraint_factor": 0.0,
+    "tendon_timeconst": "0.0",
+    "tendon_forcelimited": "true",
+    "tendon_forcerange": "-1000 0"
+  },
+
+  "seg_offsets": [0, 0, 0],
+  "gravity": "0 0 -9.81",
+  "plane": true,
+  "plane_style": "checkered",
+  "disable_self_collision": true,
+  "_comment_collision": "enable_tdcr_collision: let the backbone collide with task objects; link_shape: link geometry.",
+  "enable_tdcr_collision": true,
+  "link_shape": "cylinder",
+
+  "mounting": {
+    "default_type": "franka",
+    "franka_pos": "0.075 0 -0.13055",
+    "franka_euler": "0 1.5708 0",
+    "mount_angle": 0.7854,
+    "world_pos": "0 0 0.3",
+    "world_euler": "0 0 0"
+  }
+}

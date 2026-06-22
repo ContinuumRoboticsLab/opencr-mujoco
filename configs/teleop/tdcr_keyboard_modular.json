@@ -1,0 +1,21 @@
+{
+  "scene": "assets/tdcr/example_modular.xml",
+  "input_device": "tdcr_keyboard",
+  "controller": "tdcr_joint",
+  "controller_params": {
+    "tendon_distance_mm": 10.0,
+    "clark_speed_scale": 0.05,
+    "command_frame_offset_rad": 3.1416,
+    "angle_offset_rad_ccw": [0, 0, 0]
+  },
+  "viewer_params": {
+    "width": 1200,
+    "height": 900,
+    "show_left_ui": true,
+    "show_right_ui": true
+  },
+  "simulation_params": {
+    "timestep": null,
+    "render_fps": 60
+  }
+}

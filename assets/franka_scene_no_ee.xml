@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mujoco model="Franka Robot (No End-Effector)">
+    
+    <!-- Include all the component files -->
+    <include file="./franka_assets/assets.xml"/>
+    <include file="./franka_assets/basic_scene.xml"/>
+    <include file="./franka_assets/actuator_no_ee.xml"/>
+    
+    <!-- World body with the robot -->
+    <worldbody>
+        <!-- Add the Franka robot without end-effector -->
+        <body name="robot" pos="0 0 0">
+            <include file="./franka_assets/chain_no_ee.xml"/>
+        </body>
+    </worldbody>
+    
+    <!-- Home/pretension keyframe: the Franka "ready" pose (7 arm joints, no gripper).
+         Single source of truth for the initial/home state. -->
+    <keyframe>
+        <key name="pretension"
+             qpos="0 -0.7853981633974483 0 -2.356194490192345 0 1.5707963267948966 0.7853981633974483"
+             ctrl="0 -0.7853981633974483 0 -2.356194490192345 0 1.5707963267948966 0.7853981633974483"/>
+    </keyframe>
+
+</mujoco> 

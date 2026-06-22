@@ -1,0 +1,27 @@
+{
+  "scene": "assets/ftdcr_v4_sysid_franka_scene.xml",
+  "input_device": "multipt_keyboard",
+  "controller": "tdcr_multipt",
+  "control_mode": "task_space",
+  "width": 1200,
+  "height": 900,
+  "show_info": true,
+  "sim_steps_per_frame": 5,
+  "fps": 100,
+  "velocity_scale": 0.5,
+  "damping_factor": 0.01,
+  "disable_gravity": true,
+  "verbose": false,
+  "_comment_controller_params": "Geometric params (tendon_distance_mm, angle_offset_rad_ccw) are derived from the scene's generation config at load time (generate.tdcr_geometry_from_scene); only teleop-feel/mode params live here. Add a geometric key to override.",
+  "controller_params": {
+    "franka_linear_scale": 0.1,
+    "franka_angular_scale": 0.5,
+    "tdcr_linear_scale": 0.1,
+    "tdcr_angular_scale": 2.0,
+    "clark_direct_scale": 10.0,
+    "settle_horizon_s": 0.1,
+    "jacobian_perturbation_mm": 1.5,
+    "jacobian_cols_per_refresh": 2
+  },
+  "description": "Multi-point TDCR task-space control with variable Franka contribution"
+}

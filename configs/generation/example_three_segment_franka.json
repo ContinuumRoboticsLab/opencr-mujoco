@@ -1,0 +1,81 @@
+{
+  "description": "BEGINNER EXAMPLE - a 3-segment tendon-driven continuum robot (TDCR) mounted on a Franka arm. Segments are 'coupled': each segment's tendons route through every link below it (pull a tip tendon and the whole stack bends). Generate it with:  python generate.py --config example_three_segment_franka --franka",
+
+  "_comment_1_geometry": "=================== BACKBONE GEOMETRY ===================",
+  "num_segments": 3,
+  "_comment_links": "links_per_segment: how many rigid links approximate each flexible segment. More links = smoother bending but slower simulation (8-15 is typical).",
+  "links_per_segment": {"1": 10, "2": 10, "3": 10},
+  "_comment_lengths": "segment_lengths: physical length of each segment, in METERS (here 3 x 0.1 m = 0.3 m total). Segments may have different lengths.",
+  "segment_lengths": {"1": 0.1, "2": 0.1, "3": 0.1},
+  "_comment_radius": "radius: VISUAL radius of each link cylinder, in meters (cosmetic only - structural stiffness comes from material_properties.outer_radius below).",
+  "radius": 0.006,
+  "_comment_mass": "mass: total backbone mass in kg. Only used by joint_config_mode 'direct'; in 'material' mode (below) per-link mass is derived from density x cross-section.",
+  "mass": 0.05,
+
+  "_comment_2_joints": "=================== JOINTS / STIFFNESS ===================",
+  "_comment_joints_per_link": "joints_per_link: 2 = bending about two axes (the usual choice); 3 also adds axial twist.",
+  "joints_per_link": 2,
+  "_comment_joint_mode": "joint_config_mode: 'material' derives joint stiffness from Young's modulus + cross-section via beam theory. Switch to 'direct' to give stiffness/damping numbers explicitly instead.",
+  "joint_config_mode": "material",
+  "_comment_material": "material_properties (used when joint_config_mode == 'material'): outer_radius/inner_radius set the STRUCTURAL backbone cross-section that determines stiffness - a small outer_radius means a flexible rod. density x that cross-section sets per-link mass. youngs_modulus in Pascals. damping is per-joint damping.",
+  "material_properties": {
+    "density": 37708,
+    "youngs_modulus": 50e9,
+    "poisson_ratio": 0.3,
+    "inner_radius": 0,
+    "outer_radius": 0.0005,
+    "damping": 0.05
+  },
+  "_comment_joint_range": "joint_range / vert_joint_range: per-joint angular limits in degrees (bending joints / the axial joint).",
+  "joint_range": "-100 100",
+  "vert_joint_range": "-500 500",
+
+  "_comment_3_actuation": "=================== TENDON ACTUATION ===================",
+  "_comment_actuation_mode": "actuation_mode: 'parallel_tendons' = cable-driven (the standard TDCR). Other modes: 'direct_torque', 'position', 'velocity', 'none'.",
+  "actuation_mode": "parallel_tendons",
+  "actuator_type": "motor",
+  "_comment_segments": "actuation_details.segments: one entry per segment. number_of_tendons: 3 (triangular layout) or 4 (cross/X). distance_to_backbone: tendon offset from the centerline in meters - bigger means more bending torque per unit of cable pull.",
+  "actuation_details": {
+    "segments": [
+      {"number_of_tendons": 3, "distance_to_backbone": 0.004},
+      {"number_of_tendons": 3, "distance_to_backbone": 0.004},
+      {"number_of_tendons": 3, "distance_to_backbone": 0.004}
+    ]
+  },
+  "actuator_properties": {
+    "_comment_ctrl": "tendon_ctrlrange: min/max commanded tendon-length change, in meters.",
+    "tendon_ctrlrange": "-0.05 0.05",
+    "_comment_type": "tendon_actuator_type: 'position' (length control, most common) or 'motor' (direct force).",
+    "tendon_actuator_type": "position",
+    "_comment_kp": "tendon_kp: position gain (how stiffly the cable tracks its commanded length). tendon_kp_scaling 'inverse_length' scales the gain so longer tendons aren't over-stiff.",
+    "tendon_kp": 10000,
+    "tendon_kp_scaling": "inverse_length",
+    "tendon_kp_scale_factor": 1.0,
+    "_comment_pre": "tendon_pretension: baseline cable tension (N) that holds the robot taut at rest. All motions are relative to this pretensioned state.",
+    "tendon_pretension": 5.0,
+    "tendon_constraint_factor": 0.0,
+    "tendon_timeconst": "0.0",
+    "tendon_forcelimited": "true",
+    "_comment_forcerange": "tendon_forcerange: cables can only PULL, so force is clamped <= 0 (negative = pulling).",
+    "tendon_forcerange": "-100 0"
+  },
+
+  "_comment_seg_offsets": "seg_offsets: rotate each segment's tendon pattern about the backbone (radians). Staggering them (0, 30 deg, 60 deg) lets stacked segments bend in independent directions.",
+  "seg_offsets": [0, 0.5236, 1.0472],
+
+  "_comment_4_world": "=================== WORLD / MOUNTING ===================",
+  "gravity": "0 0 -9.81",
+  "plane": true,
+  "plane_style": "checkered",
+  "_comment_selfcol": "disable_self_collision: true skips link-vs-link contact (faster, and avoids jitter for a slender backbone).",
+  "disable_self_collision": true,
+  "_comment_mounting": "mounting: where the TDCR base sits. franka_* (used with --franka) is the base pose in the Franka end-effector frame; world_* (used with --world) is the base pose in the world.",
+  "mounting": {
+    "default_type": "franka",
+    "franka_pos": "0.075 0 -0.13055",
+    "franka_euler": "0 1.5708 0",
+    "mount_angle": 0.7854,
+    "world_pos": "0 0 0.3",
+    "world_euler": "0 0 0"
+  }
+}

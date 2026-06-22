@@ -1,0 +1,51 @@
+name: Nightly tests
+
+# The full correctness suite: unit tests (smoke + physics/teleop/evaluation
+# correctness layers, incl. the ~1.5 s dynamics end-to-end regression) plus
+# the CLI integration tests. See tests/README.md.
+#
+# Notes on GitHub's scheduler:
+# - cron only fires on the DEFAULT branch, after this file lands there
+# - public repos with no activity for 60 days get schedules auto-disabled
+#   (re-enable from the Actions tab)
+
+on:
+  schedule:
+    - cron: "0 7 * * *" # 07:00 UTC nightly
+  workflow_dispatch: # manual runs from the Actions tab
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        # the supported bounds (requires-python >= 3.10; mujoco wheels are
+        # cp310+ — on older Pythons pip falls back to a source build that
+        # fails needing MUJOCO_PATH)
+        python-version: ["3.10", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: System dependencies
+        # xvfb: pynput (keyboard mappers) needs an X display on Linux
+        # libhidapi: pydualsense's `hid` module loads it at import time
+        # libgl1/ffmpeg: MuJoCo viewer GL + matplotlib video writers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libhidapi-libusb0 libgl1 ffmpeg
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run nightly suite
+        run: xvfb-run -a python -m pytest tests/unit/ tests/test_main_scripts.py -q

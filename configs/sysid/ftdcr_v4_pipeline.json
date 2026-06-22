@@ -1,0 +1,99 @@
+{
+  "name": "ftdcr_v4_pipeline",
+  "description": "3-step sysid pipeline for FTDCR v4",
+  "base_generation_config": "configs/generation/ftdcr_v4_sysid.json",
+  "data": {
+    "data_dir": "data/sysid/ftdcr_v4/tdcr_sysid_20260511-183002_analysis",
+    "tendon_pull_file": "tdcr_sysid_20260511-183002_tendon_pull.csv",
+    "train_file": "tdcr_sysid_20260511-183002_train.csv",
+    "val_file": "tdcr_sysid_20260511-183002_val.csv",
+    "marker_units": "mm",
+    "marker_transform": {
+      "translation": [0.00, 0.000, 0.008],
+      "rotation": [
+        [1, 0, 0],
+        [0, 1, 0],
+        [0, 0, 1]
+      ]
+    },
+    "kinematics": {
+      "num_segments": 3,
+      "tendons_per_segment": 3,
+      "tendon_distance_mm": 4.5
+    }
+  },
+  "step1_geometric": {
+    "enabled": true
+  },
+  "step2_tendon_optimization": {
+    "enabled": true,
+    "parameters": {
+      "pretension": {
+        "enabled": true,
+        "mode": "per_segment",
+        "bounds": [0.0, 8.0]
+      },
+      "tendon_kp": {
+        "enabled": false,
+        "mode": "per_segment",
+        "bounds": [2000, 8000]
+      }
+    },
+    "optimization": {
+      "algorithm": "parallel_multistart",
+      "n_starts": 11,
+      "workers": 11,
+      "search_stride": 8,
+      "maxfev": 120
+    },
+    "simulation": {
+      "dynamic": false,
+      "settling_time": 0.5,
+      "enable_viewer": false
+    },
+    "metrics": {
+      "rmse": {
+        "weight": 1.0
+      }
+    }
+  },
+  "step3_refinement": {
+    "enabled": true,
+    "parameters": {
+      "pretension": {
+        "enabled": true,
+        "mode": "per_segment"
+      },
+      "tendon_kp": {
+        "enabled": false,
+        "mode": "per_segment"
+      }
+    },
+    "optimization": {
+      "algorithm": "parallel_multistart",
+      "n_starts": 11,
+      "workers": 11,
+      "search_stride": 8,
+      "maxfev": 120
+    },
+    "simulation": {
+      "dynamic": false,
+      "settling_time": 0.5,
+      "enable_viewer": false
+    },
+    "metrics": {
+      "rmse": {
+        "weight": 1.0
+      }
+    },
+    "bounds_margin": 0.6
+  },
+  "visualization": {
+    "plot_interval": 1,
+    "save_plots": true,
+    "show_live": false
+  },
+  "output": {
+    "base_dir": "sysid_results/ftdcr_v4"
+  }
+}

@@ -1,0 +1,15 @@
+<!-- Modified from the original source code at
+        1) https://github.com/vikashplus/franka
+    which was originally written by Vikash Kumar and licensed under the Apache License= -->
+
+<mujocoinclude>
+	<actuator>
+        <position name="panda0_joint1" joint="robot:panda0_joint1" class="panda" kp="870" forcerange="-87 87" ctrlrange="-2.8973 2.8973"/> <!-- velocity="2.1750" -->
+        <position name="panda0_joint2" joint="robot:panda0_joint2" class="panda" kp="870" forcerange="-87 87" ctrlrange="-1.7628 1.7628"/> <!-- velocity="2.1750" -->
+        <position name="panda0_joint3" joint="robot:panda0_joint3" class="panda" kp="870" forcerange="-87 87" ctrlrange="-2.8973 2.8973"/> <!-- velocity="2.1750" -->
+        <position name="panda0_joint4" joint="robot:panda0_joint4" class="panda" kp="870" forcerange="-87 87" ctrlrange="-3.0718 -0.4"/> <!-- velocity="2.1750" -->
+        <position name="panda0_joint5" joint="robot:panda0_joint5" class="panda" kp="120" forcerange="-12 12" ctrlrange="-2.8973 2.8973"/> <!-- velocity="2.6100" -->
+        <position name="panda0_joint6" joint="robot:panda0_joint6" class="panda" kp="120" forcerange="-12 12" ctrlrange="-0.0873 3.8223"/> <!-- velocity="2.6100" -->
+        <position name="panda0_joint7" joint="robot:panda0_joint7" class="panda" kp="120" forcerange="-12 12" ctrlrange="-2.9671 2.9671"/> <!-- velocity="2.9671" -->
+    </actuator>
+</mujocoinclude> 

@@ -1,0 +1,47 @@
+<!-- Robot limits pulled from https://frankaemika.github.io/docs/control_parameters.html#constants -->
+<!-- Modified from the original source code at
+        1) https://github.com/vikashplus/franka
+    which was originally written by Vikash Kumar and licensed under the Apache License= -->
+<mujocoinclude>
+	<body name="panda0_link0" childclass="panda" >
+        <geom class="panda_viz" mesh="link0_viz"/>
+        <geom class="panda_col" mesh="link0_col" mass="2.91242"/>
+        <body name="panda0_link1" pos="0 0 0.333">
+            <joint name="robot:panda0_joint1" range="-2.8973 2.8973" class="panda_arm"/>
+            <geom class="panda_viz" mesh="link1_viz"/>
+            <geom class="panda_col" mesh="link1_col" mass="2.7063"/>
+            <body name="panda0_link2" pos="0 0 0" quat="0.707107 -0.707107 0 0">
+                <joint name="robot:panda0_joint2" range="-1.7628 1.7628" class="panda_arm"/>
+                <geom class="panda_viz" mesh="link2_viz"/>
+                <geom class="panda_col" mesh="link2_col" mass="2.73046"/>
+                <body name="panda0_link3" pos="0 -0.316 0" quat="0.707107 0.707107 0 0">
+                    <joint name="robot:panda0_joint3" range="-2.8973 2.8973" class="panda_arm"/>
+                    <geom class="panda_viz" mesh="link3_viz"/>
+                    <geom class="panda_col" mesh="link3_col" mass="2.04104"/>
+                    <body name="panda0_link4" pos="0.0825 0 0" quat="0.707107 0.707107 0 0">
+                        <joint name="robot:panda0_joint4" range="-3.0718 -0.4" class="panda_arm"/>
+                        <geom class="panda_viz" mesh="link4_viz"/>
+                        <geom class="panda_col" mesh="link4_col" mass="2.08129"/>
+                        <body name="panda0_link5" pos="-0.0825 0.384 0" quat="0.707107 -0.707107 0 0">
+                            <joint name="robot:panda0_joint5" range="-2.8973 2.8973" class="panda_forearm"/>
+                            <geom class="panda_viz" mesh="link5_viz"/>
+                            <geom class="panda_col" mesh="link5_col" mass="3.00049"/>
+                            <body name="panda0_link6" pos="0 0 0" quat="0.707107 0.707107 0 0">
+                                <joint name="robot:panda0_joint6" range="-0.0873 3.8223" class="panda_forearm"/>
+                                <geom class="panda_viz" mesh="link6_viz"/>
+                                <geom class="panda_col" mesh="link6_col" mass="1.3235"/>
+                                <body name="panda0_link7" pos="0.088 0 0" quat="0.707107 0.707107 0 0">
+                                    <joint name="robot:panda0_joint7" range="-2.9671 2.9671" class="panda_forearm"/>
+                                    <geom class="panda_viz" mesh="link7_viz"/>
+                                    <geom class="panda_col" mesh="link7_col" mass="0.2"/>
+                                    <!-- End-effector reference point (no gripper attached) -->
+                                    <body name='end_effector' pos='0 0 0.107' euler='0 0 -0.785398'/>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </body>
+</mujocoinclude> 

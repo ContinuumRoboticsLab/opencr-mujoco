@@ -1,0 +1,18 @@
+# Core dependencies
+mujoco>=3.0.0
+numpy>=1.21.0
+scipy>=1.7.0
+pydualsense>=0.1.0
+
+# Visualization and GUI
+matplotlib>=3.3.0
+
+# keyboard teleop
+pynput>=1.7.0
+
+# Data processing and analysis
+pandas>=1.3.0
+tqdm>=4.62.0
+
+# Optional hardware bridge (real TDCR via Dynamixel servos):
+#   pip install -e ".[hardware]"        # or: pip install dynamixel_sdk>=3.7.0

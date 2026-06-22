@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opencr-mujoco"
+version = "0.1.0"
+description = "Native MuJoCo simulation of tendon-driven continuum robots via rigid-link discretization of the continuum backbone"
+readme = "README.md"
+# mujoco's current wheels are cp310+ (3.9 resolves to an sdist that needs
+# MUJOCO_PATH); Python 3.9 is EOL since Oct 2025
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Continuum Robotics Laboratory, University of Toronto" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Robotics",
+]
+# Single source of truth for runtime deps: requirements.txt
+dynamic = ["dependencies"]
+
+[project.urls]
+Homepage = "https://github.com/ContinuumRoboticsLab/opencr-mujoco"
+Documentation = "https://continuumroboticslab.github.io/opencr-mujoco/"
+Source = "https://github.com/ContinuumRoboticsLab/opencr-mujoco"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0.0",
+    "pytest-cov>=2.0.0",
+    "black>=21.0.0",
+    "flake8>=3.8.0",
+]
+# Dynamixel hardware bridge for mirroring teleop to a real TDCR
+hardware = [
+    "dynamixel_sdk>=3.7.0",
+]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
+[tool.setuptools.packages.find]
+include = ["opencr_mujoco", "opencr_mujoco.*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.xml", "*.md"]
+
+[tool.black]
+line-length = 88
+target-version = ['py310', 'py311', 'py312', 'py313']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88

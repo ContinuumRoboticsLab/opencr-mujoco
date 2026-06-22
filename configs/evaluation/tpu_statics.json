@@ -1,0 +1,38 @@
+{
+  "description": "TPU Rod - SoroSim Static Equilibrium Evaluation",
+  "test_type": "TPURodMuJoCo",
+  "n_values": [25, 35, 50, 70, 100],
+  "sim_time": 10.0,
+  "sim_timestep": 0.01,
+  "force_ramp_time": 2.0,
+  "early_stop": 500,
+  "output_dir": "paper_results/evaluation_results/sorosim_statics",
+  "reference_dir": "data/reference/sorosim",
+  "plot_dir": "plots/sorosim_statics",
+  "frame_conversion": {
+    "file_to_mujoco": [
+      [0,  0, 1],
+      [0, -1, 0],
+      [1,  0, 0]
+    ]
+  },
+  "generator_config": {
+    "joints_per_link": 3,
+    "joint_config_mode": "material",
+    "material_properties": {
+      "density": 1200,
+      "youngs_modulus": 70e6,
+      "poisson_ratio": 0.4,
+      "inner_radius": 0,
+      "outer_radius": 0.005,
+      "damping_ratio": 0.1
+    },
+    "actuation_mode": "none",
+    "gravity": "0 -9.81 0",
+    "plane": false,
+    "total_length": 0.4,
+    "radius": 0.005,
+    "disable_contact": true
+  },
+  "visualize": false
+}

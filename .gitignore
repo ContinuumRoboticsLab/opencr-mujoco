@@ -1,0 +1,116 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# MuJoCo
+*.mjcf
+*.mjb
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+**/tmp.json
+tmp_*.json
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pytest
+.pytest_cache/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+
+# Evaluation Results and Generated Files
+paper_results/evaluation_results/
+paper_results/paper_figures/
+plots/
+test_results/
+test_plots/
+sysid_results/
+
+# Generated TDCR models: ignore all XML except the hand-authored base
+# scenes. Scenes referenced by teleop/viewer configs are regenerated on
+# first use from their configs/generation/ source (generate.ensure_scene)
+*.xml
+!assets/franka_assets/*.xml
+!assets/franka_scene*.xml
+!docs/scenes/**/*.xml
+
+# Local agent/IDE state
+.claude/
+.codex/
+.agents/
+CLAUDE.md
+AGENTS.md
+
+# Temporary test files
+test_*.py
+!tests/test_*.py
+!tests/unit/test_*.py
+# Large website videos are hosted as GitHub Release assets; keep the small
+# README/demo videos under docs/media tracked.
+*.mp4
+!docs/media/*.mp4
+
+# macOS
+._.DS_Store
+
+# Temporary scene files
+assets/tmp*.xml
+tmp*.json
+
+# MuJoCo solver log (written on simulation warnings)
+MUJOCO_LOG.TXT
+
+# docs site: local inspection copy (browser uses pybundle.tar.gz instead)
+docs/pysrc/

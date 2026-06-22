@@ -1,0 +1,38 @@
+name: CI
+
+# Lightweight per-push / per-PR status check: the quick smoke layer only.
+# The full correctness suite (unit + integration) stays on the nightly cron
+# in nightly-tests.yml.
+
+on: [pull_request, push]
+
+jobs:
+  quick-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          # lowest supported version (requires-python >= 3.10; mujoco wheels
+          # are cp310+)
+          python-version: "3.10"
+          cache: pip
+
+      - name: System dependencies
+        # xvfb: pynput (keyboard mappers) needs an X display on Linux
+        # libhidapi: pydualsense's `hid` module loads it at import time
+        # libgl1/ffmpeg: MuJoCo viewer GL + matplotlib video writers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libhidapi-libusb0 libgl1 ffmpeg
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run quick smoke tests
+        run: xvfb-run -a python run_tests.py --quick

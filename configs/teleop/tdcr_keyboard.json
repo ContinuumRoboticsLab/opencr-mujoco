@@ -1,0 +1,20 @@
+{
+  "scene": "assets/tdcr/example_three_segment_franka.xml",
+  "input_device": "tdcr_keyboard",
+  "controller": "tdcr_joint",
+  "_comment_controller_params": "Geometric params (tendon_distance_mm, angle_offset_rad_ccw) are derived from the scene's generation config at load time (generate.tdcr_geometry_from_scene); only teleop-feel params live here. Add a geometric key to override.",
+  "controller_params": {
+    "clark_speed_scale": 0.005,
+    "command_frame_offset_rad": 3.1416
+  },
+  "viewer_params": {
+    "width": 1200,
+    "height": 900,
+    "show_left_ui": true,
+    "show_right_ui": true
+  },
+  "simulation_params": {
+    "timestep": null,
+    "render_fps": 60
+  }
+}

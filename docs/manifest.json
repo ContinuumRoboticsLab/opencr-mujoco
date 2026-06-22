@@ -1,0 +1,602 @@
+{
+  "configs": [
+    {
+      "id": "franka_tdcr_combined",
+      "label": "franka_tdcr_combined",
+      "description": "Combined Franka (IK) + TDCR (joint) control via keyboard",
+      "controller": "combined",
+      "input_device": "combined_keyboard",
+      "controller_params": {
+        "tdcr": {
+          "clark_speed_scale": 0.005,
+          "command_frame_offset_rad": -1.5708,
+          "command_mirror_x": true,
+          "franka_speed_scale": 0.5,
+          "angle_offset_rad_ccw": [
+            -3.0589,
+            -2.5615,
+            -2.0506
+          ],
+          "tendon_distance_mm": 4.5
+        }
+      },
+      "fps": 50,
+      "scene_ref": "assets/ftdcr_v4_sysid_franka_scene.xml",
+      "available": true,
+      "scene": "ftdcr_v4_sysid_franka_scene.xml",
+      "files": [
+        "ftdcr_v4_sysid_franka_scene.xml",
+        "franka_assets/meshes/visual/link0.stl",
+        "franka_assets/meshes/visual/link1.stl",
+        "franka_assets/meshes/visual/link2.stl",
+        "franka_assets/meshes/visual/link3.stl",
+        "franka_assets/meshes/visual/link4.stl",
+        "franka_assets/meshes/visual/link5.stl",
+        "franka_assets/meshes/visual/link6.stl",
+        "franka_assets/meshes/visual/link7.stl"
+      ],
+      "model": {
+        "nu": 16,
+        "nq": 67,
+        "nv": 67,
+        "nkey": 1,
+        "timestep": 0.002,
+        "actuator_names": [
+          "panda_joint1",
+          "panda_joint2",
+          "panda_joint3",
+          "panda_joint4",
+          "panda_joint5",
+          "panda_joint6",
+          "panda_joint7",
+          "seg_0_ten_0",
+          "seg_0_ten_1",
+          "seg_0_ten_2",
+          "seg_1_ten_0",
+          "seg_1_ten_1",
+          "seg_1_ten_2",
+          "seg_2_ten_0",
+          "seg_2_ten_1",
+          "seg_2_ten_2"
+        ],
+        "body_names": [
+          "world",
+          "panda_link0",
+          "panda_link1",
+          "panda_link2",
+          "panda_link3",
+          "panda_link4",
+          "panda_link5",
+          "panda_link6",
+          "panda_link7",
+          "panda_link8",
+          "end_effector",
+          "mount",
+          "mount_adapter",
+          "tdcr_mount",
+          "link_0",
+          "link_1",
+          "link_2",
+          "link_3",
+          "link_4",
+          "link_5",
+          "link_6",
+          "link_7",
+          "link_8",
+          "link_9",
+          "link_10",
+          "link_11",
+          "link_12",
+          "link_13",
+          "link_14",
+          "link_15",
+          "link_16",
+          "link_17",
+          "link_18",
+          "link_19",
+          "link_20",
+          "link_21",
+          "link_22",
+          "link_23",
+          "link_24",
+          "link_25",
+          "link_26",
+          "link_27",
+          "link_28",
+          "link_29",
+          "link_30",
+          "EE_pos"
+        ],
+        "actuator_ctrlrange": [
+          [
+            -2.8973,
+            2.8973
+          ],
+          [
+            -1.7628,
+            1.7628
+          ],
+          [
+            -2.8973,
+            2.8973
+          ],
+          [
+            -3.0718,
+            -0.4
+          ],
+          [
+            -2.8973,
+            2.8973
+          ],
+          [
+            -0.0873,
+            3.8223
+          ],
+          [
+            -2.9671,
+            2.9671
+          ],
+          [
+            0.009999999999999995,
+            0.11
+          ],
+          [
+            0.009999999999999995,
+            0.11
+          ],
+          [
+            0.009999999999999995,
+            0.11
+          ],
+          [
+            0.0725,
+            0.1725
+          ],
+          [
+            0.0725,
+            0.1725
+          ],
+          [
+            0.0725,
+            0.1725
+          ],
+          [
+            0.1365,
+            0.2365
+          ],
+          [
+            0.1365,
+            0.2365
+          ],
+          [
+            0.1365,
+            0.2365
+          ]
+        ],
+        "tendon_actuators": [
+          {
+            "name": "seg_0_ten_0",
+            "id": 7,
+            "seg": 0,
+            "ten": 0
+          },
+          {
+            "name": "seg_0_ten_1",
+            "id": 8,
+            "seg": 0,
+            "ten": 1
+          },
+          {
+            "name": "seg_0_ten_2",
+            "id": 9,
+            "seg": 0,
+            "ten": 2
+          },
+          {
+            "name": "seg_1_ten_0",
+            "id": 10,
+            "seg": 1,
+            "ten": 0
+          },
+          {
+            "name": "seg_1_ten_1",
+            "id": 11,
+            "seg": 1,
+            "ten": 1
+          },
+          {
+            "name": "seg_1_ten_2",
+            "id": 12,
+            "seg": 1,
+            "ten": 2
+          },
+          {
+            "name": "seg_2_ten_0",
+            "id": 13,
+            "seg": 2,
+            "ten": 0
+          },
+          {
+            "name": "seg_2_ten_1",
+            "id": 14,
+            "seg": 2,
+            "ten": 1
+          },
+          {
+            "name": "seg_2_ten_2",
+            "id": 15,
+            "seg": 2,
+            "ten": 2
+          }
+        ],
+        "franka_actuators": [
+          {
+            "name": "panda_joint1",
+            "id": 0
+          },
+          {
+            "name": "panda_joint2",
+            "id": 1
+          },
+          {
+            "name": "panda_joint3",
+            "id": 2
+          },
+          {
+            "name": "panda_joint4",
+            "id": 3
+          },
+          {
+            "name": "panda_joint5",
+            "id": 4
+          },
+          {
+            "name": "panda_joint6",
+            "id": 5
+          },
+          {
+            "name": "panda_joint7",
+            "id": 6
+          }
+        ],
+        "pretension": {
+          "qpos": [
+            0.0,
+            -0.7853981633974483,
+            0.0,
+            -2.356194490192345,
+            0.0,
+            1.5707963267948966,
+            0.7853981633974483,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ctrl": [
+            0.0,
+            -0.7853981633974483,
+            0.0,
+            -2.356194490192345,
+            0.0,
+            1.5707963267948966,
+            0.7853981633974483,
+            0.05999991744653265,
+            0.05999991744653265,
+            0.05999991744653265,
+            0.12233421117009877,
+            0.12233421117009877,
+            0.12233421117009877,
+            0.18594647300583234,
+            0.18594647300583234,
+            0.18594647300583234
+          ]
+        }
+      }
+    },
+    {
+      "id": "tdcr_keyboard",
+      "label": "tdcr_keyboard",
+      "description": "",
+      "controller": "tdcr_joint",
+      "input_device": "tdcr_keyboard",
+      "controller_params": {
+        "clark_speed_scale": 0.005,
+        "command_frame_offset_rad": 3.1416,
+        "angle_offset_rad_ccw": [
+          0,
+          0.5236,
+          1.0472
+        ],
+        "tendon_distance_mm": 4.0
+      },
+      "fps": 60,
+      "scene_ref": "assets/tdcr/example_three_segment_franka.xml",
+      "available": true,
+      "scene": "tdcr/example_three_segment_franka.xml",
+      "files": [
+        "tdcr/example_three_segment_franka.xml"
+      ],
+      "model": {
+        "nu": 9,
+        "nq": 60,
+        "nv": 60,
+        "nkey": 1,
+        "timestep": 0.002,
+        "actuator_names": [
+          "seg_0_ten_0",
+          "seg_0_ten_1",
+          "seg_0_ten_2",
+          "seg_1_ten_0",
+          "seg_1_ten_1",
+          "seg_1_ten_2",
+          "seg_2_ten_0",
+          "seg_2_ten_1",
+          "seg_2_ten_2"
+        ],
+        "body_names": [
+          "world",
+          "mocap_base",
+          "link_0",
+          "link_1",
+          "link_2",
+          "link_3",
+          "link_4",
+          "link_5",
+          "link_6",
+          "link_7",
+          "link_8",
+          "link_9",
+          "link_10",
+          "link_11",
+          "link_12",
+          "link_13",
+          "link_14",
+          "link_15",
+          "link_16",
+          "link_17",
+          "link_18",
+          "link_19",
+          "link_20",
+          "link_21",
+          "link_22",
+          "link_23",
+          "link_24",
+          "link_25",
+          "link_26",
+          "link_27",
+          "link_28",
+          "link_29",
+          "link_30",
+          "EE_pos"
+        ],
+        "actuator_ctrlrange": [
+          [
+            0.05,
+            0.15000000000000002
+          ],
+          [
+            0.05,
+            0.15000000000000002
+          ],
+          [
+            0.05,
+            0.15000000000000002
+          ],
+          [
+            0.15000000000000002,
+            0.25
+          ],
+          [
+            0.15000000000000002,
+            0.25
+          ],
+          [
+            0.15000000000000002,
+            0.25
+          ],
+          [
+            0.25000000000000006,
+            0.35000000000000003
+          ],
+          [
+            0.25000000000000006,
+            0.35000000000000003
+          ],
+          [
+            0.25000000000000006,
+            0.35000000000000003
+          ]
+        ],
+        "tendon_actuators": [
+          {
+            "name": "seg_0_ten_0",
+            "id": 0,
+            "seg": 0,
+            "ten": 0
+          },
+          {
+            "name": "seg_0_ten_1",
+            "id": 1,
+            "seg": 0,
+            "ten": 1
+          },
+          {
+            "name": "seg_0_ten_2",
+            "id": 2,
+            "seg": 0,
+            "ten": 2
+          },
+          {
+            "name": "seg_1_ten_0",
+            "id": 3,
+            "seg": 1,
+            "ten": 0
+          },
+          {
+            "name": "seg_1_ten_1",
+            "id": 4,
+            "seg": 1,
+            "ten": 1
+          },
+          {
+            "name": "seg_1_ten_2",
+            "id": 5,
+            "seg": 1,
+            "ten": 2
+          },
+          {
+            "name": "seg_2_ten_0",
+            "id": 6,
+            "seg": 2,
+            "ten": 0
+          },
+          {
+            "name": "seg_2_ten_1",
+            "id": 7,
+            "seg": 2,
+            "ten": 1
+          },
+          {
+            "name": "seg_2_ten_2",
+            "id": 8,
+            "seg": 2,
+            "ten": 2
+          }
+        ],
+        "franka_actuators": [],
+        "pretension": {
+          "qpos": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ctrl": [
+            0.0995,
+            0.0995,
+            0.0995,
+            0.1995,
+            0.1995,
+            0.1995,
+            0.29950000000000004,
+            0.29950000000000004,
+            0.29950000000000004
+          ]
+        }
+      }
+    }
+  ]
+}

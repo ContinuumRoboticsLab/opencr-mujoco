@@ -1,0 +1,757 @@
+<mujoco>
+    <compiler angle="radian" autolimits="true" />
+    <option gravity="0 0 -9.81" noslip_iterations="1" />
+    <default>
+        <joint axis="0 0 1" limited="true" />
+        <geom contype="0" conaffinity="0" condim="1" friction="1.0 0.005 0.0001" />
+        <default class="tdcr_collision">
+            <geom contype="1" conaffinity="1" condim="3" friction="1.0 0.005 0.0001" solimp="0.8 0.95 0.001" />
+        </default>
+        <default class="planar_link">
+            <joint stiffness="0.39480470680166646" damping="0.05" limited="false" axis="1 0 0" pos="0 0 0" type="hinge" />
+        </default>
+        <default class="vertical_link">
+            <joint stiffness="0.39480470680166646" damping="0.05" limited="false" axis="0 -1 0" pos="0 0 0" type="hinge" />
+        </default>
+    </default>
+    <asset>
+        <material name="panda_white" rgba="1 1 1 1" shininess="0.4" specular="0.4" />
+        <material name="panda" rgba="0.8 0.8 0.8 1" shininess="0.4" specular="0.4" />
+        <material name="mount_adapter" rgba="0.3 0.3 0.3 1" shininess="0.2" specular="0.2" />
+        <material name="mount_connector" rgba="0.5 0.5 0.5 1" shininess="0.3" specular="0.3" />
+        <texture type="skybox" builtin="gradient" rgb1="1 1 1" rgb2=".6 .8 1" width="256" height="256" />
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512" />
+        <material name="MatGnd" reflectance="0.5" texture="texplane" texrepeat="1 1" texuniform="true" />
+        <mesh name="link0" file="franka_assets/meshes/visual/link0.stl" />
+        <mesh name="link1" file="franka_assets/meshes/visual/link1.stl" />
+        <mesh name="link2" file="franka_assets/meshes/visual/link2.stl" />
+        <mesh name="link3" file="franka_assets/meshes/visual/link3.stl" />
+        <mesh name="link4" file="franka_assets/meshes/visual/link4.stl" />
+        <mesh name="link5" file="franka_assets/meshes/visual/link5.stl" />
+        <mesh name="link6" file="franka_assets/meshes/visual/link6.stl" />
+        <mesh name="link7" file="franka_assets/meshes/visual/link7.stl" />
+    </asset>
+    <worldbody>
+        <light directional="false" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="1  1 3" dir="-1 -1 -3" />
+        <light directional="false" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="1 -1 3" dir="-1 1 -3" />
+        <light directional="false" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="-1 0 3" dir="1 0 -3" />
+        <geom name="ground" pos="0 0 0" size="5 5 10" material="MatGnd" type="plane" contype="1" conaffinity="1" />
+        <body name="panda_link0">
+            <geom type="mesh" material="panda" mesh="link0" />
+            <inertial pos="-4.1018e-02 -1.4e-04 4.9974e-02" mass="6.29769e-01" fullinertia="3.15e-03 3.88e-03 4.285e-03 8.2904e-07 1.5e-04 8.2299e-06" />
+            <body name="panda_link1" pos="0 0 0.333">
+                <inertial pos="3.875e-03 2.081e-03 -4.762e-02" mass="4.970684" fullinertia="7.0337e-01 7.0661e-01 9.1170e-03 -1.3900e-04 6.7720e-03 1.9169e-02" />
+                <joint name="panda_joint1" pos="0 0 0" axis="0 0 1" limited="true" range="-2.8973 2.8973" damping="100" />
+                <geom type="mesh" material="panda_white" mesh="link1" />
+                <body name="panda_link2" pos="0 0 0" quat="0.707107 -0.707107 0 0">
+                    <inertial pos="-3.141e-03 -2.872e-02 3.495e-03" mass="0.646926" fullinertia="7.9620e-03 2.8110e-02 2.5995e-02 -3.9250e-03 1.0254e-02 7.0400e-04" />
+                    <joint name="panda_joint2" pos="0 0 0" axis="0 0 1" limited="true" range="-1.7628 1.7628" damping="100" />
+                    <geom type="mesh" material="panda_white" mesh="link2" />
+                    <body name="panda_link3" pos="0 -0.316 0" quat="0.707107 0.707107 0 0">
+                        <inertial pos="2.7518e-02 3.9252e-02 -6.6502e-02" mass="3.228604" fullinertia="3.7242e-02 3.6155e-02 1.0830e-02 -4.7610e-03 -1.1396e-02 -1.2805e-02" />
+                        <joint name="panda_joint3" pos="0 0 0" axis="0 0 1" limited="true" range="-2.8973 2.8973" damping="100" />
+                        <geom type="mesh" material="panda" mesh="link3" />
+                        <body name="panda_link4" pos="0.0825 0 0" quat="0.707107 0.707107 0 0">
+                            <inertial pos="-5.317e-02 1.04419e-01 2.7454e-02" mass="3.587895" fullinertia="2.5853e-02 1.9552e-02 2.8323e-02 7.7960e-03 -1.3320e-03 8.6410e-03" />
+                            <joint name="panda_joint4" pos="0 0 0" axis="0 0 1" limited="true" range="-3.0718 -0.0698" damping="100" />
+                            <geom type="mesh" material="panda" mesh="link4" />
+                            <body name="panda_link5" pos="-0.0825 0.384 0" quat="0.707107 -0.707107 0 0">
+                                <inertial pos="-1.1953e-02 4.1065e-02 -3.8437e-02" mass="1.225946" fullinertia="3.5549e-02 2.9474e-02 8.6270e-03 -2.1170e-03 -4.0370e-03 2.2900e-04" />
+                                <joint name="panda_joint5" pos="0 0 0" axis="0 0 1" limited="true" range="-2.8973 2.8973" damping="10" />
+                                <geom type="mesh" material="panda" mesh="link5" />
+                                <body name="panda_link6" pos="0 0 0" quat="0.707107 0.707107 0 0">
+                                    <inertial pos="6.0149e-02 -1.4117e-02 -1.0517e-02" mass="1.666555" fullinertia="1.9640e-03 4.3540e-03 5.4330e-03 1.0900e-04 -1.1580e-03 3.4100e-04" />
+                                    <joint name="panda_joint6" pos="0 0 0" axis="0 0 1" limited="true" range="-0.0873 3.8223" damping="10" />
+                                    <geom type="mesh" material="panda" mesh="link6" />
+                                    <body name="panda_link7" pos="0.088 0 0" quat="0.707107 0.707107 0 0">
+                                        <inertial pos="1.0517e-02 -4.252e-03 6.1597e-02" mass="7.35522e-01" fullinertia="1.2516e-02 1.0027e-02 4.8150e-03 -4.2800e-04 -1.1960e-03 -7.4100e-04" />
+                                        <joint name="panda_joint7" pos="0 0 0" axis="0 0 1" limited="true" range="-2.8973 2.8973" damping="10" />
+                                        <geom type="mesh" material="panda" mesh="link7" />
+                                        <body name="panda_link8" pos="0 0 0.107">
+                                            <body name="end_effector">
+                                                <inertial pos="-1e-02 0 3e-02" mass="7.3e-01" diaginertia="1e-03 2.5e-03 1.7e-03" />
+                                                <body name="mount" euler="0 -1.57079632679 0">
+                                                    <body name="mount_adapter" pos="0 0 -0.0461563" euler="0.7854 0.0 0.0">
+                                                        <geom name="mount_adapter_box" type="box" pos="0.06 0 0.0276938" size="0.06 0.05 0.0461563" material="mount_adapter" contype="0" conaffinity="0" />
+                                                    </body>
+                                                    <body name="tdcr_mount" pos="0.075 -0.092313 -0.0923126" euler="0.0 1.5708 -0.7854">
+                                                        <geom name="mount_connector_cylinder" type="cylinder" pos="-0.03 0 0" size="0.025 0.03" euler="0 1.5708 0" material="mount_connector" contype="0" conaffinity="0" />
+                                                        <body name="link_0" pos="0 0 0" euler="0 1.5708 3.1416">
+                                                            <geom fromto="0 0 0 0 0 0.003108333333333333" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="9.205575951359028e-05" name="geom_0" class="tdcr_collision" />
+                                                            <site name="l_0_base_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0" rgba="0 0 0 0" />
+                                                            <site name="l_0_base_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0" rgba="0 0 0 0" />
+                                                            <site name="l_0_base_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0" rgba="0 0 0 0" />
+                                                            <site name="l_0_base_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0" rgba="0 0 0 0" />
+                                                            <site name="l_0_base_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0" rgba="0 0 0 0" />
+                                                            <site name="l_0_base_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0" rgba="0 0 0 0" />
+                                                            <site name="l_0_base_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0" rgba="0 0 0 0" />
+                                                            <site name="l_0_base_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0" rgba="0 0 0 0" />
+                                                            <site name="l_0_base_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0" rgba="0 0 0 0" />
+                                                            <body name="link_1" pos="0 0 0.003108333333333333">
+                                                                <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_1" class="tdcr_collision" />
+                                                                <joint class="planar_link" name="joint_1_x" />
+                                                                <joint class="vertical_link" name="joint_1_z" />
+                                                                <site name="l_1_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0.002891666666666667" rgba="0 0 0 0" />
+                                                                <site name="l_1_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0.002891666666666667" rgba="0 0 0 0" />
+                                                                <site name="l_1_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0.002891666666666667" rgba="0 0 0 0" />
+                                                                <site name="l_1_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.002891666666666667" rgba="0 0 0 0" />
+                                                                <site name="l_1_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.002891666666666667" rgba="0 0 0 0" />
+                                                                <site name="l_1_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.002891666666666667" rgba="0 0 0 0" />
+                                                                <site name="l_1_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.002891666666666667" rgba="0 0 0 0" />
+                                                                <site name="l_1_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.002891666666666667" rgba="0 0 0 0" />
+                                                                <site name="l_1_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.002891666666666667" rgba="0 0 0 0" />
+                                                                <body name="link_2" pos="0 0 0.006216666666666666">
+                                                                    <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_2" class="tdcr_collision" />
+                                                                    <joint class="planar_link" name="joint_2_x" />
+                                                                    <joint class="vertical_link" name="joint_2_z" />
+                                                                    <site name="l_2_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0.0026750000000000003" rgba="0 0 0 0" />
+                                                                    <site name="l_2_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0.0026750000000000003" rgba="0 0 0 0" />
+                                                                    <site name="l_2_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0.0026750000000000003" rgba="0 0 0 0" />
+                                                                    <site name="l_2_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0026750000000000003" rgba="0 0 0 0" />
+                                                                    <site name="l_2_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0026750000000000003" rgba="0 0 0 0" />
+                                                                    <site name="l_2_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0026750000000000003" rgba="0 0 0 0" />
+                                                                    <site name="l_2_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0026750000000000003" rgba="0 0 0 0" />
+                                                                    <site name="l_2_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0026750000000000003" rgba="0 0 0 0" />
+                                                                    <site name="l_2_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0026750000000000003" rgba="0 0 0 0" />
+                                                                    <body name="link_3" pos="0 0 0.006216666666666666">
+                                                                        <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_3" class="tdcr_collision" />
+                                                                        <joint class="planar_link" name="joint_3_x" />
+                                                                        <joint class="vertical_link" name="joint_3_z" />
+                                                                        <site name="l_3_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0.0024583333333333367" rgba="0 0 0 0" />
+                                                                        <site name="l_3_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0.0024583333333333367" rgba="0 0 0 0" />
+                                                                        <site name="l_3_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0.0024583333333333367" rgba="0 0 0 0" />
+                                                                        <site name="l_3_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0024583333333333367" rgba="0 0 0 0" />
+                                                                        <site name="l_3_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0024583333333333367" rgba="0 0 0 0" />
+                                                                        <site name="l_3_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0024583333333333367" rgba="0 0 0 0" />
+                                                                        <site name="l_3_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0024583333333333367" rgba="0 0 0 0" />
+                                                                        <site name="l_3_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0024583333333333367" rgba="0 0 0 0" />
+                                                                        <site name="l_3_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0024583333333333367" rgba="0 0 0 0" />
+                                                                        <body name="link_4" pos="0 0 0.006216666666666666">
+                                                                            <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_4" class="tdcr_collision" />
+                                                                            <joint class="planar_link" name="joint_4_x" />
+                                                                            <joint class="vertical_link" name="joint_4_z" />
+                                                                            <site name="l_4_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0.0022416666666666696" rgba="0 0 0 0" />
+                                                                            <site name="l_4_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0.0022416666666666696" rgba="0 0 0 0" />
+                                                                            <site name="l_4_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0.0022416666666666696" rgba="0 0 0 0" />
+                                                                            <site name="l_4_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0022416666666666696" rgba="0 0 0 0" />
+                                                                            <site name="l_4_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0022416666666666696" rgba="0 0 0 0" />
+                                                                            <site name="l_4_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0022416666666666696" rgba="0 0 0 0" />
+                                                                            <site name="l_4_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0022416666666666696" rgba="0 0 0 0" />
+                                                                            <site name="l_4_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0022416666666666696" rgba="0 0 0 0" />
+                                                                            <site name="l_4_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0022416666666666696" rgba="0 0 0 0" />
+                                                                            <body name="link_5" pos="0 0 0.006216666666666666">
+                                                                                <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_5" class="tdcr_collision" />
+                                                                                <joint class="planar_link" name="joint_5_x" />
+                                                                                <joint class="vertical_link" name="joint_5_z" />
+                                                                                <site name="l_5_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0.002025000000000006" rgba="0 0 0 0" />
+                                                                                <site name="l_5_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0.002025000000000006" rgba="0 0 0 0" />
+                                                                                <site name="l_5_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0.002025000000000006" rgba="0 0 0 0" />
+                                                                                <site name="l_5_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.002025000000000006" rgba="0 0 0 0" />
+                                                                                <site name="l_5_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.002025000000000006" rgba="0 0 0 0" />
+                                                                                <site name="l_5_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.002025000000000006" rgba="0 0 0 0" />
+                                                                                <site name="l_5_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.002025000000000006" rgba="0 0 0 0" />
+                                                                                <site name="l_5_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.002025000000000006" rgba="0 0 0 0" />
+                                                                                <site name="l_5_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.002025000000000006" rgba="0 0 0 0" />
+                                                                                <body name="link_6" pos="0 0 0.006216666666666666">
+                                                                                    <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_6" class="tdcr_collision" />
+                                                                                    <joint class="planar_link" name="joint_6_x" />
+                                                                                    <joint class="vertical_link" name="joint_6_z" />
+                                                                                    <site name="l_6_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0.0018083333333333354" rgba="0 0 0 0" />
+                                                                                    <site name="l_6_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0.0018083333333333354" rgba="0 0 0 0" />
+                                                                                    <site name="l_6_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0.0018083333333333354" rgba="0 0 0 0" />
+                                                                                    <site name="l_6_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0018083333333333354" rgba="0 0 0 0" />
+                                                                                    <site name="l_6_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0018083333333333354" rgba="0 0 0 0" />
+                                                                                    <site name="l_6_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0018083333333333354" rgba="0 0 0 0" />
+                                                                                    <site name="l_6_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0018083333333333354" rgba="0 0 0 0" />
+                                                                                    <site name="l_6_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0018083333333333354" rgba="0 0 0 0" />
+                                                                                    <site name="l_6_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0018083333333333354" rgba="0 0 0 0" />
+                                                                                    <body name="link_7" pos="0 0 0.006216666666666666">
+                                                                                        <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_7" class="tdcr_collision" />
+                                                                                        <joint class="planar_link" name="joint_7_x" />
+                                                                                        <joint class="vertical_link" name="joint_7_z" />
+                                                                                        <site name="l_7_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0.0015916666666666648" rgba="0 0 0 0" />
+                                                                                        <site name="l_7_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0.0015916666666666648" rgba="0 0 0 0" />
+                                                                                        <site name="l_7_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0.0015916666666666648" rgba="0 0 0 0" />
+                                                                                        <site name="l_7_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0015916666666666648" rgba="0 0 0 0" />
+                                                                                        <site name="l_7_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0015916666666666648" rgba="0 0 0 0" />
+                                                                                        <site name="l_7_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0015916666666666648" rgba="0 0 0 0" />
+                                                                                        <site name="l_7_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0015916666666666648" rgba="0 0 0 0" />
+                                                                                        <site name="l_7_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0015916666666666648" rgba="0 0 0 0" />
+                                                                                        <site name="l_7_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0015916666666666648" rgba="0 0 0 0" />
+                                                                                        <body name="link_8" pos="0 0 0.006216666666666666">
+                                                                                            <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_8" class="tdcr_collision" />
+                                                                                            <joint class="planar_link" name="joint_8_x" />
+                                                                                            <joint class="vertical_link" name="joint_8_z" />
+                                                                                            <site name="l_8_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0.0013750000000000012" rgba="0 0 0 0" />
+                                                                                            <site name="l_8_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0.0013750000000000012" rgba="0 0 0 0" />
+                                                                                            <site name="l_8_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0.0013750000000000012" rgba="0 0 0 0" />
+                                                                                            <site name="l_8_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0013750000000000012" rgba="0 0 0 0" />
+                                                                                            <site name="l_8_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0013750000000000012" rgba="0 0 0 0" />
+                                                                                            <site name="l_8_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0013750000000000012" rgba="0 0 0 0" />
+                                                                                            <site name="l_8_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0013750000000000012" rgba="0 0 0 0" />
+                                                                                            <site name="l_8_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0013750000000000012" rgba="0 0 0 0" />
+                                                                                            <site name="l_8_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0013750000000000012" rgba="0 0 0 0" />
+                                                                                            <body name="link_9" pos="0 0 0.006216666666666666">
+                                                                                                <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_9" class="tdcr_collision" />
+                                                                                                <joint class="planar_link" name="joint_9_x" />
+                                                                                                <joint class="vertical_link" name="joint_9_z" />
+                                                                                                <site name="l_9_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0.0011583333333333307" rgba="0 0 0 0" />
+                                                                                                <site name="l_9_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0.0011583333333333307" rgba="0 0 0 0" />
+                                                                                                <site name="l_9_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0.0011583333333333307" rgba="0 0 0 0" />
+                                                                                                <site name="l_9_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0011583333333333307" rgba="0 0 0 0" />
+                                                                                                <site name="l_9_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0011583333333333307" rgba="0 0 0 0" />
+                                                                                                <site name="l_9_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0011583333333333307" rgba="0 0 0 0" />
+                                                                                                <site name="l_9_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0011583333333333307" rgba="0 0 0 0" />
+                                                                                                <site name="l_9_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0011583333333333307" rgba="0 0 0 0" />
+                                                                                                <site name="l_9_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0011583333333333307" rgba="0 0 0 0" />
+                                                                                                <body name="link_10" pos="0 0 0.006216666666666666">
+                                                                                                    <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.910 0.910 0.910 1.000" mass="0.00018411151902718057" name="geom_10" class="tdcr_collision" />
+                                                                                                    <joint class="planar_link" name="joint_10_x" />
+                                                                                                    <joint class="vertical_link" name="joint_10_z" />
+                                                                                                    <site name="l_10_seg_0_tendon_0" pos="-0.004481013781509429 -0.0004129352127423389 0.000941666666666667" rgba="0 0 0 0" />
+                                                                                                    <site name="l_10_seg_0_tendon_1" pos="0.0030229509468290222 -0.0033334318011721065 0.000941666666666667" rgba="0 0 0 0" />
+                                                                                                    <site name="l_10_seg_0_tendon_2" pos="0.0024676361886589748 0.0037630800736126527 0.000941666666666667" rgba="0 0 0 0" />
+                                                                                                    <site name="l_10_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.000941666666666667" rgba="0 0 0 0" />
+                                                                                                    <site name="l_10_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.000941666666666667" rgba="0 0 0 0" />
+                                                                                                    <site name="l_10_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.000941666666666667" rgba="0 0 0 0" />
+                                                                                                    <site name="l_10_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.000941666666666667" rgba="0 0 0 0" />
+                                                                                                    <site name="l_10_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.000941666666666667" rgba="0 0 0 0" />
+                                                                                                    <site name="l_10_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.000941666666666667" rgba="0 0 0 0" />
+                                                                                                    <body name="link_11" pos="0 0 0.006216666666666666">
+                                                                                                        <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.910 0.910 0.910 1.000" mass="0.00018411151902718057" name="geom_11" class="tdcr_collision" />
+                                                                                                        <joint class="planar_link" name="joint_11_x" />
+                                                                                                        <joint class="vertical_link" name="joint_11_z" />
+                                                                                                        <site name="l_11_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0009750000000000036" rgba="0 0 0 0" />
+                                                                                                        <site name="l_11_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0009750000000000036" rgba="0 0 0 0" />
+                                                                                                        <site name="l_11_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0009750000000000036" rgba="0 0 0 0" />
+                                                                                                        <site name="l_11_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0009750000000000036" rgba="0 0 0 0" />
+                                                                                                        <site name="l_11_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0009750000000000036" rgba="0 0 0 0" />
+                                                                                                        <site name="l_11_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0009750000000000036" rgba="0 0 0 0" />
+                                                                                                        <body name="link_12" pos="0 0 0.006216666666666666">
+                                                                                                            <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.910 0.910 0.910 1.000" mass="0.00018411151902718057" name="geom_12" class="tdcr_collision" />
+                                                                                                            <joint class="planar_link" name="joint_12_x" />
+                                                                                                            <joint class="vertical_link" name="joint_12_z" />
+                                                                                                            <site name="l_12_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0010083333333333472" rgba="0 0 0 0" />
+                                                                                                            <site name="l_12_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0010083333333333472" rgba="0 0 0 0" />
+                                                                                                            <site name="l_12_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0010083333333333472" rgba="0 0 0 0" />
+                                                                                                            <site name="l_12_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0010083333333333472" rgba="0 0 0 0" />
+                                                                                                            <site name="l_12_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0010083333333333472" rgba="0 0 0 0" />
+                                                                                                            <site name="l_12_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0010083333333333472" rgba="0 0 0 0" />
+                                                                                                            <body name="link_13" pos="0 0 0.006216666666666666">
+                                                                                                                <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.910 0.910 0.910 1.000" mass="0.00018411151902718057" name="geom_13" class="tdcr_collision" />
+                                                                                                                <joint class="planar_link" name="joint_13_x" />
+                                                                                                                <joint class="vertical_link" name="joint_13_z" />
+                                                                                                                <site name="l_13_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0010416666666666768" rgba="0 0 0 0" />
+                                                                                                                <site name="l_13_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0010416666666666768" rgba="0 0 0 0" />
+                                                                                                                <site name="l_13_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0010416666666666768" rgba="0 0 0 0" />
+                                                                                                                <site name="l_13_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0010416666666666768" rgba="0 0 0 0" />
+                                                                                                                <site name="l_13_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0010416666666666768" rgba="0 0 0 0" />
+                                                                                                                <site name="l_13_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0010416666666666768" rgba="0 0 0 0" />
+                                                                                                                <body name="link_14" pos="0 0 0.006216666666666666">
+                                                                                                                    <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.910 0.910 0.910 1.000" mass="0.00018411151902718057" name="geom_14" class="tdcr_collision" />
+                                                                                                                    <joint class="planar_link" name="joint_14_x" />
+                                                                                                                    <joint class="vertical_link" name="joint_14_z" />
+                                                                                                                    <site name="l_14_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0010750000000000065" rgba="0 0 0 0" />
+                                                                                                                    <site name="l_14_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0010750000000000065" rgba="0 0 0 0" />
+                                                                                                                    <site name="l_14_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0010750000000000065" rgba="0 0 0 0" />
+                                                                                                                    <site name="l_14_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0010750000000000065" rgba="0 0 0 0" />
+                                                                                                                    <site name="l_14_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0010750000000000065" rgba="0 0 0 0" />
+                                                                                                                    <site name="l_14_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0010750000000000065" rgba="0 0 0 0" />
+                                                                                                                    <body name="link_15" pos="0 0 0.006216666666666666">
+                                                                                                                        <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.910 0.910 0.910 1.000" mass="0.00018411151902718057" name="geom_15" class="tdcr_collision" />
+                                                                                                                        <joint class="planar_link" name="joint_15_x" />
+                                                                                                                        <joint class="vertical_link" name="joint_15_z" />
+                                                                                                                        <site name="force_site_mid" pos="0 0 1.3877787807814457e-17" size="0.003" rgba="0 1 0 0.8" type="sphere" />
+                                                                                                                        <site name="l_15_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0011083333333333362" rgba="0 0 0 0" />
+                                                                                                                        <site name="l_15_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0011083333333333362" rgba="0 0 0 0" />
+                                                                                                                        <site name="l_15_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0011083333333333362" rgba="0 0 0 0" />
+                                                                                                                        <site name="l_15_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0011083333333333362" rgba="0 0 0 0" />
+                                                                                                                        <site name="l_15_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0011083333333333362" rgba="0 0 0 0" />
+                                                                                                                        <site name="l_15_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0011083333333333362" rgba="0 0 0 0" />
+                                                                                                                        <body name="link_16" pos="0 0 0.006216666666666666">
+                                                                                                                            <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.910 0.910 0.910 1.000" mass="0.00018411151902718057" name="geom_16" class="tdcr_collision" />
+                                                                                                                            <joint class="planar_link" name="joint_16_x" />
+                                                                                                                            <joint class="vertical_link" name="joint_16_z" />
+                                                                                                                            <site name="l_16_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0011416666666666797" rgba="0 0 0 0" />
+                                                                                                                            <site name="l_16_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0011416666666666797" rgba="0 0 0 0" />
+                                                                                                                            <site name="l_16_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0011416666666666797" rgba="0 0 0 0" />
+                                                                                                                            <site name="l_16_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0011416666666666797" rgba="0 0 0 0" />
+                                                                                                                            <site name="l_16_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0011416666666666797" rgba="0 0 0 0" />
+                                                                                                                            <site name="l_16_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0011416666666666797" rgba="0 0 0 0" />
+                                                                                                                            <body name="link_17" pos="0 0 0.006216666666666666">
+                                                                                                                                <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.910 0.910 0.910 1.000" mass="0.00018411151902718057" name="geom_17" class="tdcr_collision" />
+                                                                                                                                <joint class="planar_link" name="joint_17_x" />
+                                                                                                                                <joint class="vertical_link" name="joint_17_z" />
+                                                                                                                                <site name="l_17_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0011750000000000094" rgba="0 0 0 0" />
+                                                                                                                                <site name="l_17_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0011750000000000094" rgba="0 0 0 0" />
+                                                                                                                                <site name="l_17_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0011750000000000094" rgba="0 0 0 0" />
+                                                                                                                                <site name="l_17_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0011750000000000094" rgba="0 0 0 0" />
+                                                                                                                                <site name="l_17_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0011750000000000094" rgba="0 0 0 0" />
+                                                                                                                                <site name="l_17_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0011750000000000094" rgba="0 0 0 0" />
+                                                                                                                                <body name="link_18" pos="0 0 0.006216666666666666">
+                                                                                                                                    <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.910 0.910 0.910 1.000" mass="0.00018411151902718057" name="geom_18" class="tdcr_collision" />
+                                                                                                                                    <joint class="planar_link" name="joint_18_x" />
+                                                                                                                                    <joint class="vertical_link" name="joint_18_z" />
+                                                                                                                                    <site name="l_18_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.001208333333333353" rgba="0 0 0 0" />
+                                                                                                                                    <site name="l_18_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.001208333333333353" rgba="0 0 0 0" />
+                                                                                                                                    <site name="l_18_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.001208333333333353" rgba="0 0 0 0" />
+                                                                                                                                    <site name="l_18_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.001208333333333353" rgba="0 0 0 0" />
+                                                                                                                                    <site name="l_18_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.001208333333333353" rgba="0 0 0 0" />
+                                                                                                                                    <site name="l_18_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.001208333333333353" rgba="0 0 0 0" />
+                                                                                                                                    <body name="link_19" pos="0 0 0.006216666666666666">
+                                                                                                                                        <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.910 0.910 0.910 1.000" mass="0.00018411151902718057" name="geom_19" class="tdcr_collision" />
+                                                                                                                                        <joint class="planar_link" name="joint_19_x" />
+                                                                                                                                        <joint class="vertical_link" name="joint_19_z" />
+                                                                                                                                        <site name="l_19_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0012416666666666687" rgba="0 0 0 0" />
+                                                                                                                                        <site name="l_19_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0012416666666666687" rgba="0 0 0 0" />
+                                                                                                                                        <site name="l_19_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0012416666666666687" rgba="0 0 0 0" />
+                                                                                                                                        <site name="l_19_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0012416666666666687" rgba="0 0 0 0" />
+                                                                                                                                        <site name="l_19_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0012416666666666687" rgba="0 0 0 0" />
+                                                                                                                                        <site name="l_19_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0012416666666666687" rgba="0 0 0 0" />
+                                                                                                                                        <body name="link_20" pos="0 0 0.006216666666666666">
+                                                                                                                                            <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_20" class="tdcr_collision" />
+                                                                                                                                            <joint class="planar_link" name="joint_20_x" />
+                                                                                                                                            <joint class="vertical_link" name="joint_20_z" />
+                                                                                                                                            <site name="l_20_seg_1_tendon_0" pos="-0.0033795844971236493 -0.0029712638096947045 0.0012750000000000122" rgba="0 0 0 0" />
+                                                                                                                                            <site name="l_20_seg_1_tendon_1" pos="0.0037394711397321125 -0.002503268981773755 0.0012750000000000122" rgba="0 0 0 0" />
+                                                                                                                                            <site name="l_20_seg_1_tendon_2" pos="-0.00017183066688061978 0.004496718161272659 0.0012750000000000122" rgba="0 0 0 0" />
+                                                                                                                                            <site name="l_20_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0012750000000000122" rgba="0 0 0 0" />
+                                                                                                                                            <site name="l_20_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0012750000000000122" rgba="0 0 0 0" />
+                                                                                                                                            <site name="l_20_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0012750000000000122" rgba="0 0 0 0" />
+                                                                                                                                            <body name="link_21" pos="0 0 0.006216666666666666">
+                                                                                                                                                <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_21" class="tdcr_collision" />
+                                                                                                                                                <joint class="planar_link" name="joint_21_x" />
+                                                                                                                                                <joint class="vertical_link" name="joint_21_z" />
+                                                                                                                                                <site name="l_21_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0014583333333333393" rgba="0 0 0 0" />
+                                                                                                                                                <site name="l_21_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0014583333333333393" rgba="0 0 0 0" />
+                                                                                                                                                <site name="l_21_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0014583333333333393" rgba="0 0 0 0" />
+                                                                                                                                                <body name="link_22" pos="0 0 0.006216666666666666">
+                                                                                                                                                    <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_22" class="tdcr_collision" />
+                                                                                                                                                    <joint class="planar_link" name="joint_22_x" />
+                                                                                                                                                    <joint class="vertical_link" name="joint_22_z" />
+                                                                                                                                                    <site name="l_22_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0016416666666666524" rgba="0 0 0 0" />
+                                                                                                                                                    <site name="l_22_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0016416666666666524" rgba="0 0 0 0" />
+                                                                                                                                                    <site name="l_22_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0016416666666666524" rgba="0 0 0 0" />
+                                                                                                                                                    <body name="link_23" pos="0 0 0.006216666666666666">
+                                                                                                                                                        <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_23" class="tdcr_collision" />
+                                                                                                                                                        <joint class="planar_link" name="joint_23_x" />
+                                                                                                                                                        <joint class="vertical_link" name="joint_23_z" />
+                                                                                                                                                        <site name="l_23_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0018249999999999933" rgba="0 0 0 0" />
+                                                                                                                                                        <site name="l_23_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0018249999999999933" rgba="0 0 0 0" />
+                                                                                                                                                        <site name="l_23_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0018249999999999933" rgba="0 0 0 0" />
+                                                                                                                                                        <body name="link_24" pos="0 0 0.006216666666666666">
+                                                                                                                                                            <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_24" class="tdcr_collision" />
+                                                                                                                                                            <joint class="planar_link" name="joint_24_x" />
+                                                                                                                                                            <joint class="vertical_link" name="joint_24_z" />
+                                                                                                                                                            <site name="l_24_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.002008333333333334" rgba="0 0 0 0" />
+                                                                                                                                                            <site name="l_24_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.002008333333333334" rgba="0 0 0 0" />
+                                                                                                                                                            <site name="l_24_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.002008333333333334" rgba="0 0 0 0" />
+                                                                                                                                                            <body name="link_25" pos="0 0 0.006216666666666666">
+                                                                                                                                                                <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_25" class="tdcr_collision" />
+                                                                                                                                                                <joint class="planar_link" name="joint_25_x" />
+                                                                                                                                                                <joint class="vertical_link" name="joint_25_z" />
+                                                                                                                                                                <site name="l_25_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0021916666666666473" rgba="0 0 0 0" />
+                                                                                                                                                                <site name="l_25_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0021916666666666473" rgba="0 0 0 0" />
+                                                                                                                                                                <site name="l_25_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0021916666666666473" rgba="0 0 0 0" />
+                                                                                                                                                                <body name="link_26" pos="0 0 0.006216666666666666">
+                                                                                                                                                                    <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_26" class="tdcr_collision" />
+                                                                                                                                                                    <joint class="planar_link" name="joint_26_x" />
+                                                                                                                                                                    <joint class="vertical_link" name="joint_26_z" />
+                                                                                                                                                                    <site name="l_26_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0023749999999999882" rgba="0 0 0 0" />
+                                                                                                                                                                    <site name="l_26_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0023749999999999882" rgba="0 0 0 0" />
+                                                                                                                                                                    <site name="l_26_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0023749999999999882" rgba="0 0 0 0" />
+                                                                                                                                                                    <body name="link_27" pos="0 0 0.006216666666666666">
+                                                                                                                                                                        <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_27" class="tdcr_collision" />
+                                                                                                                                                                        <joint class="planar_link" name="joint_27_x" />
+                                                                                                                                                                        <joint class="vertical_link" name="joint_27_z" />
+                                                                                                                                                                        <site name="l_27_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.002558333333333329" rgba="0 0 0 0" />
+                                                                                                                                                                        <site name="l_27_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.002558333333333329" rgba="0 0 0 0" />
+                                                                                                                                                                        <site name="l_27_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.002558333333333329" rgba="0 0 0 0" />
+                                                                                                                                                                        <body name="link_28" pos="0 0 0.006216666666666666">
+                                                                                                                                                                            <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_28" class="tdcr_collision" />
+                                                                                                                                                                            <joint class="planar_link" name="joint_28_x" />
+                                                                                                                                                                            <joint class="vertical_link" name="joint_28_z" />
+                                                                                                                                                                            <site name="l_28_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.0027416666666666423" rgba="0 0 0 0" />
+                                                                                                                                                                            <site name="l_28_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.0027416666666666423" rgba="0 0 0 0" />
+                                                                                                                                                                            <site name="l_28_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.0027416666666666423" rgba="0 0 0 0" />
+                                                                                                                                                                            <body name="link_29" pos="0 0 0.006216666666666666">
+                                                                                                                                                                                <geom fromto="0 0 0 0 0 0.006216666666666666" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="0.00018411151902718057" name="geom_29" class="tdcr_collision" />
+                                                                                                                                                                                <joint class="planar_link" name="joint_29_x" />
+                                                                                                                                                                                <joint class="vertical_link" name="joint_29_z" />
+                                                                                                                                                                                <site name="l_29_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.002924999999999983" rgba="0 0 0 0" />
+                                                                                                                                                                                <site name="l_29_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.002924999999999983" rgba="0 0 0 0" />
+                                                                                                                                                                                <site name="l_29_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.002924999999999983" rgba="0 0 0 0" />
+                                                                                                                                                                                <body name="link_30" pos="0 0 0.006216666666666666">
+                                                                                                                                                                                    <geom fromto="0 0 0 0 0 0.003108333333333333" size="0.0055" type="cylinder" rgba="0.274 0.274 0.274 1.000" mass="9.205575951359028e-05" name="geom_30" class="tdcr_collision" />
+                                                                                                                                                                                    <joint class="planar_link" name="joint_30_x" />
+                                                                                                                                                                                    <joint class="vertical_link" name="joint_30_z" />
+                                                                                                                                                                                    <site name="l_30_seg_2_tendon_0" pos="-0.002595959290982096 -0.003675730588544777 0.003108333333333324" rgba="0 0 0 0" />
+                                                                                                                                                                                    <site name="l_30_seg_2_tendon_1" pos="0.004489570909177082 0.0003061912008384124 0.003108333333333324" rgba="0 0 0 0" />
+                                                                                                                                                                                    <site name="l_30_seg_2_tendon_2" pos="-0.0028232442359828825 0.0035041820706106907 0.003108333333333324" rgba="0 0 0 0" />
+                                                                                                                                                                                    <body name="EE_pos" pos="0 0 0.003108333333333333">
+                                                                                                                                                                                        <site name="force_site_tip" pos="0 0 0" size="0.003" rgba="1 0 0 0.8" type="sphere" />
+                                                                                                                                                                                    </body>
+                                                                                                                                                                                </body>
+                                                                                                                                                                            </body>
+                                                                                                                                                                        </body>
+                                                                                                                                                                    </body>
+                                                                                                                                                                </body>
+                                                                                                                                                            </body>
+                                                                                                                                                        </body>
+                                                                                                                                                    </body>
+                                                                                                                                                </body>
+                                                                                                                                            </body>
+                                                                                                                                        </body>
+                                                                                                                                    </body>
+                                                                                                                                </body>
+                                                                                                                            </body>
+                                                                                                                        </body>
+                                                                                                                    </body>
+                                                                                                                </body>
+                                                                                                            </body>
+                                                                                                        </body>
+                                                                                                    </body>
+                                                                                                </body>
+                                                                                            </body>
+                                                                                        </body>
+                                                                                    </body>
+                                                                                </body>
+                                                                            </body>
+                                                                        </body>
+                                                                    </body>
+                                                                </body>
+                                                            </body>
+                                                        </body>
+                                                    </body>
+                                                </body>
+                                            </body>
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    <body name="play_pedestal" pos="0.58 0.0 0.2000"><geom name="play_pedestal_geom" type="box" size="0.11 0.11 0.2000" contype="1" conaffinity="1" rgba="0.32 0.34 0.40 1" /></body><body name="prop_0" pos="0.5800 -0.0500 0.4280"><freejoint name="prop_0_free" /><geom type="sphere" size="0.028" name="prop_0_geom" density="50" contype="1" conaffinity="1" condim="3" friction="1.0 0.02 0.001" solimp="0.9 0.95 0.001" rgba="0.92 0.30 0.25 1" /></body><body name="prop_1" pos="0.5250 0.0450 0.4350"><freejoint name="prop_1_free" /><geom type="cylinder" size="0.028 0.035" name="prop_1_geom" density="50" contype="1" conaffinity="1" condim="4" friction="1.0 0.02 0.001" solimp="0.9 0.95 0.001" rgba="0.40 0.80 0.45 1" /></body><body name="prop_2" pos="0.6350 0.0450 0.4350"><freejoint name="prop_2_free" /><geom type="cylinder" size="0.028 0.035" name="prop_2_geom" density="50" contype="1" conaffinity="1" condim="4" friction="1.0 0.02 0.001" solimp="0.9 0.95 0.001" rgba="0.70 0.45 0.90 1" /></body></worldbody>
+    <actuator>
+        <position name="panda_joint1" joint="panda_joint1" kp="870" forcerange="-87 87" ctrlrange="-2.8973 2.8973" />
+        <position name="panda_joint2" joint="panda_joint2" kp="870" forcerange="-87 87" ctrlrange="-1.7628 1.7628" />
+        <position name="panda_joint3" joint="panda_joint3" kp="870" forcerange="-87 87" ctrlrange="-2.8973 2.8973" />
+        <position name="panda_joint4" joint="panda_joint4" kp="870" forcerange="-87 87" ctrlrange="-3.0718 -0.4" />
+        <position name="panda_joint5" joint="panda_joint5" kp="120" forcerange="-12 12" ctrlrange="-2.8973 2.8973" />
+        <position name="panda_joint6" joint="panda_joint6" kp="120" forcerange="-12 12" ctrlrange="-0.0873 3.8223" />
+        <position name="panda_joint7" joint="panda_joint7" kp="120" forcerange="-12 12" ctrlrange="-2.9671 2.9671" />
+        <position name="seg_0_ten_0" tendon="seg_0_tendon_0" ctrlrange="0.009999999999999995 0.11" kp="7000.0" forcelimited="true" forcerange="-100 0" />
+        <position name="seg_0_ten_1" tendon="seg_0_tendon_1" ctrlrange="0.009999999999999995 0.11" kp="7000.0" forcelimited="true" forcerange="-100 0" />
+        <position name="seg_0_ten_2" tendon="seg_0_tendon_2" ctrlrange="0.009999999999999995 0.11" kp="7000.0" forcelimited="true" forcerange="-100 0" />
+        <position name="seg_1_ten_0" tendon="seg_1_tendon_0" ctrlrange="0.0725 0.1725" kp="7000.0" forcelimited="true" forcerange="-100 0" />
+        <position name="seg_1_ten_1" tendon="seg_1_tendon_1" ctrlrange="0.0725 0.1725" kp="7000.0" forcelimited="true" forcerange="-100 0" />
+        <position name="seg_1_ten_2" tendon="seg_1_tendon_2" ctrlrange="0.0725 0.1725" kp="7000.0" forcelimited="true" forcerange="-100 0" />
+        <position name="seg_2_ten_0" tendon="seg_2_tendon_0" ctrlrange="0.1365 0.2365" kp="7000.0" forcelimited="true" forcerange="-100 0" />
+        <position name="seg_2_ten_1" tendon="seg_2_tendon_1" ctrlrange="0.1365 0.2365" kp="7000.0" forcelimited="true" forcerange="-100 0" />
+        <position name="seg_2_ten_2" tendon="seg_2_tendon_2" ctrlrange="0.1365 0.2365" kp="7000.0" forcelimited="true" forcerange="-100 0" />
+    </actuator>
+    <tendon>
+        <spatial name="seg_0_tendon_0" rgba="0.4 0.6 0.8 1" width="0.001">
+            <site site="l_0_base_seg_0_tendon_0" />
+            <site site="l_1_seg_0_tendon_0" />
+            <site site="l_2_seg_0_tendon_0" />
+            <site site="l_3_seg_0_tendon_0" />
+            <site site="l_4_seg_0_tendon_0" />
+            <site site="l_5_seg_0_tendon_0" />
+            <site site="l_6_seg_0_tendon_0" />
+            <site site="l_7_seg_0_tendon_0" />
+            <site site="l_8_seg_0_tendon_0" />
+            <site site="l_9_seg_0_tendon_0" />
+            <site site="l_10_seg_0_tendon_0" />
+        </spatial>
+        <spatial name="seg_0_tendon_1" rgba="0.4 0.6 0.8 1" width="0.001">
+            <site site="l_0_base_seg_0_tendon_1" />
+            <site site="l_1_seg_0_tendon_1" />
+            <site site="l_2_seg_0_tendon_1" />
+            <site site="l_3_seg_0_tendon_1" />
+            <site site="l_4_seg_0_tendon_1" />
+            <site site="l_5_seg_0_tendon_1" />
+            <site site="l_6_seg_0_tendon_1" />
+            <site site="l_7_seg_0_tendon_1" />
+            <site site="l_8_seg_0_tendon_1" />
+            <site site="l_9_seg_0_tendon_1" />
+            <site site="l_10_seg_0_tendon_1" />
+        </spatial>
+        <spatial name="seg_0_tendon_2" rgba="0.4 0.6 0.8 1" width="0.001">
+            <site site="l_0_base_seg_0_tendon_2" />
+            <site site="l_1_seg_0_tendon_2" />
+            <site site="l_2_seg_0_tendon_2" />
+            <site site="l_3_seg_0_tendon_2" />
+            <site site="l_4_seg_0_tendon_2" />
+            <site site="l_5_seg_0_tendon_2" />
+            <site site="l_6_seg_0_tendon_2" />
+            <site site="l_7_seg_0_tendon_2" />
+            <site site="l_8_seg_0_tendon_2" />
+            <site site="l_9_seg_0_tendon_2" />
+            <site site="l_10_seg_0_tendon_2" />
+        </spatial>
+        <spatial name="seg_1_tendon_0" rgba="0.5 0.7 0.5 1" width="0.001">
+            <site site="l_0_base_seg_1_tendon_0" />
+            <site site="l_1_seg_1_tendon_0" />
+            <site site="l_2_seg_1_tendon_0" />
+            <site site="l_3_seg_1_tendon_0" />
+            <site site="l_4_seg_1_tendon_0" />
+            <site site="l_5_seg_1_tendon_0" />
+            <site site="l_6_seg_1_tendon_0" />
+            <site site="l_7_seg_1_tendon_0" />
+            <site site="l_8_seg_1_tendon_0" />
+            <site site="l_9_seg_1_tendon_0" />
+            <site site="l_10_seg_1_tendon_0" />
+            <site site="l_11_seg_1_tendon_0" />
+            <site site="l_12_seg_1_tendon_0" />
+            <site site="l_13_seg_1_tendon_0" />
+            <site site="l_14_seg_1_tendon_0" />
+            <site site="l_15_seg_1_tendon_0" />
+            <site site="l_16_seg_1_tendon_0" />
+            <site site="l_17_seg_1_tendon_0" />
+            <site site="l_18_seg_1_tendon_0" />
+            <site site="l_19_seg_1_tendon_0" />
+            <site site="l_20_seg_1_tendon_0" />
+        </spatial>
+        <spatial name="seg_1_tendon_1" rgba="0.5 0.7 0.5 1" width="0.001">
+            <site site="l_0_base_seg_1_tendon_1" />
+            <site site="l_1_seg_1_tendon_1" />
+            <site site="l_2_seg_1_tendon_1" />
+            <site site="l_3_seg_1_tendon_1" />
+            <site site="l_4_seg_1_tendon_1" />
+            <site site="l_5_seg_1_tendon_1" />
+            <site site="l_6_seg_1_tendon_1" />
+            <site site="l_7_seg_1_tendon_1" />
+            <site site="l_8_seg_1_tendon_1" />
+            <site site="l_9_seg_1_tendon_1" />
+            <site site="l_10_seg_1_tendon_1" />
+            <site site="l_11_seg_1_tendon_1" />
+            <site site="l_12_seg_1_tendon_1" />
+            <site site="l_13_seg_1_tendon_1" />
+            <site site="l_14_seg_1_tendon_1" />
+            <site site="l_15_seg_1_tendon_1" />
+            <site site="l_16_seg_1_tendon_1" />
+            <site site="l_17_seg_1_tendon_1" />
+            <site site="l_18_seg_1_tendon_1" />
+            <site site="l_19_seg_1_tendon_1" />
+            <site site="l_20_seg_1_tendon_1" />
+        </spatial>
+        <spatial name="seg_1_tendon_2" rgba="0.5 0.7 0.5 1" width="0.001">
+            <site site="l_0_base_seg_1_tendon_2" />
+            <site site="l_1_seg_1_tendon_2" />
+            <site site="l_2_seg_1_tendon_2" />
+            <site site="l_3_seg_1_tendon_2" />
+            <site site="l_4_seg_1_tendon_2" />
+            <site site="l_5_seg_1_tendon_2" />
+            <site site="l_6_seg_1_tendon_2" />
+            <site site="l_7_seg_1_tendon_2" />
+            <site site="l_8_seg_1_tendon_2" />
+            <site site="l_9_seg_1_tendon_2" />
+            <site site="l_10_seg_1_tendon_2" />
+            <site site="l_11_seg_1_tendon_2" />
+            <site site="l_12_seg_1_tendon_2" />
+            <site site="l_13_seg_1_tendon_2" />
+            <site site="l_14_seg_1_tendon_2" />
+            <site site="l_15_seg_1_tendon_2" />
+            <site site="l_16_seg_1_tendon_2" />
+            <site site="l_17_seg_1_tendon_2" />
+            <site site="l_18_seg_1_tendon_2" />
+            <site site="l_19_seg_1_tendon_2" />
+            <site site="l_20_seg_1_tendon_2" />
+        </spatial>
+        <spatial name="seg_2_tendon_0" rgba="0.9 0.6 0.3 1" width="0.001">
+            <site site="l_0_base_seg_2_tendon_0" />
+            <site site="l_1_seg_2_tendon_0" />
+            <site site="l_2_seg_2_tendon_0" />
+            <site site="l_3_seg_2_tendon_0" />
+            <site site="l_4_seg_2_tendon_0" />
+            <site site="l_5_seg_2_tendon_0" />
+            <site site="l_6_seg_2_tendon_0" />
+            <site site="l_7_seg_2_tendon_0" />
+            <site site="l_8_seg_2_tendon_0" />
+            <site site="l_9_seg_2_tendon_0" />
+            <site site="l_10_seg_2_tendon_0" />
+            <site site="l_11_seg_2_tendon_0" />
+            <site site="l_12_seg_2_tendon_0" />
+            <site site="l_13_seg_2_tendon_0" />
+            <site site="l_14_seg_2_tendon_0" />
+            <site site="l_15_seg_2_tendon_0" />
+            <site site="l_16_seg_2_tendon_0" />
+            <site site="l_17_seg_2_tendon_0" />
+            <site site="l_18_seg_2_tendon_0" />
+            <site site="l_19_seg_2_tendon_0" />
+            <site site="l_20_seg_2_tendon_0" />
+            <site site="l_21_seg_2_tendon_0" />
+            <site site="l_22_seg_2_tendon_0" />
+            <site site="l_23_seg_2_tendon_0" />
+            <site site="l_24_seg_2_tendon_0" />
+            <site site="l_25_seg_2_tendon_0" />
+            <site site="l_26_seg_2_tendon_0" />
+            <site site="l_27_seg_2_tendon_0" />
+            <site site="l_28_seg_2_tendon_0" />
+            <site site="l_29_seg_2_tendon_0" />
+            <site site="l_30_seg_2_tendon_0" />
+        </spatial>
+        <spatial name="seg_2_tendon_1" rgba="0.9 0.6 0.3 1" width="0.001">
+            <site site="l_0_base_seg_2_tendon_1" />
+            <site site="l_1_seg_2_tendon_1" />
+            <site site="l_2_seg_2_tendon_1" />
+            <site site="l_3_seg_2_tendon_1" />
+            <site site="l_4_seg_2_tendon_1" />
+            <site site="l_5_seg_2_tendon_1" />
+            <site site="l_6_seg_2_tendon_1" />
+            <site site="l_7_seg_2_tendon_1" />
+            <site site="l_8_seg_2_tendon_1" />
+            <site site="l_9_seg_2_tendon_1" />
+            <site site="l_10_seg_2_tendon_1" />
+            <site site="l_11_seg_2_tendon_1" />
+            <site site="l_12_seg_2_tendon_1" />
+            <site site="l_13_seg_2_tendon_1" />
+            <site site="l_14_seg_2_tendon_1" />
+            <site site="l_15_seg_2_tendon_1" />
+            <site site="l_16_seg_2_tendon_1" />
+            <site site="l_17_seg_2_tendon_1" />
+            <site site="l_18_seg_2_tendon_1" />
+            <site site="l_19_seg_2_tendon_1" />
+            <site site="l_20_seg_2_tendon_1" />
+            <site site="l_21_seg_2_tendon_1" />
+            <site site="l_22_seg_2_tendon_1" />
+            <site site="l_23_seg_2_tendon_1" />
+            <site site="l_24_seg_2_tendon_1" />
+            <site site="l_25_seg_2_tendon_1" />
+            <site site="l_26_seg_2_tendon_1" />
+            <site site="l_27_seg_2_tendon_1" />
+            <site site="l_28_seg_2_tendon_1" />
+            <site site="l_29_seg_2_tendon_1" />
+            <site site="l_30_seg_2_tendon_1" />
+        </spatial>
+        <spatial name="seg_2_tendon_2" rgba="0.9 0.6 0.3 1" width="0.001">
+            <site site="l_0_base_seg_2_tendon_2" />
+            <site site="l_1_seg_2_tendon_2" />
+            <site site="l_2_seg_2_tendon_2" />
+            <site site="l_3_seg_2_tendon_2" />
+            <site site="l_4_seg_2_tendon_2" />
+            <site site="l_5_seg_2_tendon_2" />
+            <site site="l_6_seg_2_tendon_2" />
+            <site site="l_7_seg_2_tendon_2" />
+            <site site="l_8_seg_2_tendon_2" />
+            <site site="l_9_seg_2_tendon_2" />
+            <site site="l_10_seg_2_tendon_2" />
+            <site site="l_11_seg_2_tendon_2" />
+            <site site="l_12_seg_2_tendon_2" />
+            <site site="l_13_seg_2_tendon_2" />
+            <site site="l_14_seg_2_tendon_2" />
+            <site site="l_15_seg_2_tendon_2" />
+            <site site="l_16_seg_2_tendon_2" />
+            <site site="l_17_seg_2_tendon_2" />
+            <site site="l_18_seg_2_tendon_2" />
+            <site site="l_19_seg_2_tendon_2" />
+            <site site="l_20_seg_2_tendon_2" />
+            <site site="l_21_seg_2_tendon_2" />
+            <site site="l_22_seg_2_tendon_2" />
+            <site site="l_23_seg_2_tendon_2" />
+            <site site="l_24_seg_2_tendon_2" />
+            <site site="l_25_seg_2_tendon_2" />
+            <site site="l_26_seg_2_tendon_2" />
+            <site site="l_27_seg_2_tendon_2" />
+            <site site="l_28_seg_2_tendon_2" />
+            <site site="l_29_seg_2_tendon_2" />
+            <site site="l_30_seg_2_tendon_2" />
+        </spatial>
+    </tendon>
+    <contact>
+        <exclude body1="link_0" body2="link_1" />
+        <exclude body1="link_0" body2="link_2" />
+        <exclude body1="link_0" body2="link_3" />
+        <exclude body1="link_1" body2="link_2" />
+        <exclude body1="link_1" body2="link_3" />
+        <exclude body1="link_1" body2="link_4" />
+        <exclude body1="link_2" body2="link_3" />
+        <exclude body1="link_2" body2="link_4" />
+        <exclude body1="link_2" body2="link_5" />
+        <exclude body1="link_3" body2="link_4" />
+        <exclude body1="link_3" body2="link_5" />
+        <exclude body1="link_3" body2="link_6" />
+        <exclude body1="link_4" body2="link_5" />
+        <exclude body1="link_4" body2="link_6" />
+        <exclude body1="link_4" body2="link_7" />
+        <exclude body1="link_5" body2="link_6" />
+        <exclude body1="link_5" body2="link_7" />
+        <exclude body1="link_5" body2="link_8" />
+        <exclude body1="link_6" body2="link_7" />
+        <exclude body1="link_6" body2="link_8" />
+        <exclude body1="link_6" body2="link_9" />
+        <exclude body1="link_7" body2="link_8" />
+        <exclude body1="link_7" body2="link_9" />
+        <exclude body1="link_7" body2="link_10" />
+        <exclude body1="link_8" body2="link_9" />
+        <exclude body1="link_8" body2="link_10" />
+        <exclude body1="link_8" body2="link_11" />
+        <exclude body1="link_9" body2="link_10" />
+        <exclude body1="link_9" body2="link_11" />
+        <exclude body1="link_9" body2="link_12" />
+        <exclude body1="link_10" body2="link_11" />
+        <exclude body1="link_10" body2="link_12" />
+        <exclude body1="link_10" body2="link_13" />
+        <exclude body1="link_11" body2="link_12" />
+        <exclude body1="link_11" body2="link_13" />
+        <exclude body1="link_11" body2="link_14" />
+        <exclude body1="link_12" body2="link_13" />
+        <exclude body1="link_12" body2="link_14" />
+        <exclude body1="link_12" body2="link_15" />
+        <exclude body1="link_13" body2="link_14" />
+        <exclude body1="link_13" body2="link_15" />
+        <exclude body1="link_13" body2="link_16" />
+        <exclude body1="link_14" body2="link_15" />
+        <exclude body1="link_14" body2="link_16" />
+        <exclude body1="link_14" body2="link_17" />
+        <exclude body1="link_15" body2="link_16" />
+        <exclude body1="link_15" body2="link_17" />
+        <exclude body1="link_15" body2="link_18" />
+        <exclude body1="link_16" body2="link_17" />
+        <exclude body1="link_16" body2="link_18" />
+        <exclude body1="link_16" body2="link_19" />
+        <exclude body1="link_17" body2="link_18" />
+        <exclude body1="link_17" body2="link_19" />
+        <exclude body1="link_17" body2="link_20" />
+        <exclude body1="link_18" body2="link_19" />
+        <exclude body1="link_18" body2="link_20" />
+        <exclude body1="link_18" body2="link_21" />
+        <exclude body1="link_19" body2="link_20" />
+        <exclude body1="link_19" body2="link_21" />
+        <exclude body1="link_19" body2="link_22" />
+        <exclude body1="link_20" body2="link_21" />
+        <exclude body1="link_20" body2="link_22" />
+        <exclude body1="link_20" body2="link_23" />
+        <exclude body1="link_21" body2="link_22" />
+        <exclude body1="link_21" body2="link_23" />
+        <exclude body1="link_21" body2="link_24" />
+        <exclude body1="link_22" body2="link_23" />
+        <exclude body1="link_22" body2="link_24" />
+        <exclude body1="link_22" body2="link_25" />
+        <exclude body1="link_23" body2="link_24" />
+        <exclude body1="link_23" body2="link_25" />
+        <exclude body1="link_23" body2="link_26" />
+        <exclude body1="link_24" body2="link_25" />
+        <exclude body1="link_24" body2="link_26" />
+        <exclude body1="link_24" body2="link_27" />
+        <exclude body1="link_25" body2="link_26" />
+        <exclude body1="link_25" body2="link_27" />
+        <exclude body1="link_25" body2="link_28" />
+        <exclude body1="link_26" body2="link_27" />
+        <exclude body1="link_26" body2="link_28" />
+        <exclude body1="link_26" body2="link_29" />
+        <exclude body1="link_27" body2="link_28" />
+        <exclude body1="link_27" body2="link_29" />
+        <exclude body1="link_27" body2="link_30" />
+        <exclude body1="link_28" body2="link_29" />
+        <exclude body1="link_28" body2="link_30" />
+        <exclude body1="link_29" body2="link_30" />
+    </contact>
+    <keyframe>
+        <key name="pretension" ctrl="0 -0.7853981633974483 0 -2.356194490192345 0 1.5707963267948966 0.7853981633974483 0.05999991744653265 0.05999991744653265 0.05999991744653265 0.12233421117009877 0.12233421117009877 0.12233421117009877 0.18594647300583234 0.18594647300583234 0.18594647300583234" qpos="0 -0.7853981633974483 0 -2.356194490192345 0 1.5707963267948966 0.7853981633974483 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.58 -0.05 0.42800000000000005 1.0 0 0 0 0.5249999999999999 0.045 0.43500000000000005 1.0 0 0 0 0.635 0.045 0.43500000000000005 1.0 0 0 0" />
+    </keyframe>
+</mujoco>

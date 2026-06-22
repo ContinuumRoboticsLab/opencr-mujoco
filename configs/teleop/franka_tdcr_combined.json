@@ -1,0 +1,27 @@
+{
+  "scene": "assets/ftdcr_v4_sysid_franka_scene.xml",
+  "input_device": "combined_keyboard",
+  "controller": "combined",
+  "_comment_controller_params": "Geometric params (tendon_distance_mm, angle_offset_rad_ccw) are derived automatically from the scene's generation config at load time (generate.tdcr_geometry_from_scene), so they can't drift when the scene is rerouted. Only teleop-feel params live here; add a geometric key to override the derived value.",
+  "_comment_command_frame": "command_frame_offset_rad ROTATES the up/down/left/right TDCR command into the bend plane so it matches the viewer when the robot is mounted at an angle (angle_offset_rad_ccw can't do this -- it only matches tendon assignment, it does not rotate the bend direction). +1.5708 = 90 deg; flipping its sign inverts BOTH axes. command_mirror_x flips ONLY left/right (F/H) -- the mount leaves the bend plane mirror-flipped relative to the viewer, which a rotation alone can't correct.",
+  "controller_params": {
+    "tdcr": {
+      "clark_speed_scale": 0.005,
+      "command_frame_offset_rad": -1.5708,
+      "command_mirror_x": true,
+      "franka_speed_scale": 0.5
+    }
+  },
+  "viewer_params": {
+    "width": 1400,
+    "height": 900,
+    "show_left_ui": true,
+    "show_right_ui": true
+  },
+  "simulation_params": {
+    "timestep": null,
+    "render_fps": 60
+  },
+  "fps": 50,
+  "description": "Combined Franka (IK) + TDCR (joint) control via keyboard"
+}

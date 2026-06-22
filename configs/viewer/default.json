@@ -1,0 +1,4 @@
+{
+  "scene": "assets/franka_scene.xml",
+  "description": "Basic Franka scene with end-effector"
+}

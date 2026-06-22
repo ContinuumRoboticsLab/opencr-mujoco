@@ -1,0 +1,96 @@
+{
+  "description": "Franka TDCR v4 (force/tension actuators) - sysid geometry with motor tendon actuators for tension-mode teleop",
+  "num_segments": 3,
+  "links_per_segment": {
+    "1": 10,
+    "2": 10,
+    "3": 10
+  },
+  "segment_lengths": {
+    "1": 0.06,
+    "2": 0.0625,
+    "3": 0.064
+  },
+  "radius": 0.0055,
+  "mass": 0.05,
+  "joints_per_link": 2,
+  "joint_config_mode": "material",
+  "material_properties": {
+    "density": 37708,
+    "youngs_modulus": 50000000000.0,
+    "poisson_ratio": 0.3,
+    "inner_radius": 0,
+    "outer_radius": 0.0005,
+    "damping": 0.05
+  },
+  "joint_range": "-100 100",
+  "vert_joint_range": "-500 500",
+  "actuation_mode": "parallel_tendons",
+  "actuator_type": "motor",
+  "actuation_details": {
+    "segments": [
+      {
+        "number_of_tendons": 3,
+        "distance_to_backbone": 0.0045
+      },
+      {
+        "number_of_tendons": 3,
+        "distance_to_backbone": 0.0045
+      },
+      {
+        "number_of_tendons": 3,
+        "distance_to_backbone": 0.0045
+      }
+    ]
+  },
+  "actuator_properties": {
+    "tendon_actuator_type": "motor",
+    "tendon_constraint_factor": 0.0,
+    "tendon_forcelimited": "true",
+    "tendon_forcerange": "-100 0",
+    "tendon_pretension": [
+      0.0005778742714404039,
+      0.0005778742714404039,
+      0.0005778742714404039,
+      1.160521809308655,
+      1.160521809308655,
+      1.160521809308655,
+      3.8746889591736853,
+      3.8746889591736853,
+      3.8746889591736853
+    ]
+  },
+  "seg_offsets": [
+    -3.0589,
+    -2.5615,
+    -2.0506
+  ],
+  "tendon_angle_deltas": [
+    [
+      0.0092,
+      0.1303,
+      -0.1395
+    ],
+    [
+      0.1411,
+      -0.1228,
+      -0.0183
+    ],
+    [
+      -0.1351,
+      0.0243,
+      0.1108
+    ]
+  ],
+  "gravity": "0 0 0",
+  "plane": false,
+  "plane_style": "checkered",
+  "disable_self_collision": true,
+  "mounting": {
+    "default_type": "franka",
+    "franka_pos": "0.075 0 -0.13055",
+    "franka_euler": "0 1.5708 0",
+    "mount_angle": 0.7854
+  },
+  "joint_deadband": 0.0
+}

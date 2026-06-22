@@ -1,0 +1,4 @@
+{
+  "scene": "assets/franka_scene_no_ee.xml",
+  "description": "Franka scene without end-effector (for testing)"
+}

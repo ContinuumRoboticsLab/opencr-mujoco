@@ -1,0 +1,13 @@
+{
+  "scene": "assets/franka_scene.xml",
+  "input_device": "keyboard",
+  "control_mode": "task_space",
+  "controller": "ik",
+  "width": 1200,
+  "height": 900,
+  "show_info": true,
+  "sim_steps_per_frame": 1,
+  "enable_gyroscope": false,
+  "fps": 100,
+  "description": "Keyboard control with IK (LSHIFT + keys)"
+}
