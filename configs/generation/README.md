@@ -9,9 +9,9 @@ Each JSON file here describes one Tendon-Driven Continuum Robot (TDCR). Run
 |------|------------|----------------|
 | **`example_three_segment_franka.json`** | A 3-segment, cable-driven TDCR on a Franka arm. Fully annotated. | …you're new — this is the canonical starting point. |
 | **`example_modular.json`** | A *heterogeneous* TDCR built from a small library of modules (stiff base → soft tip). Fully annotated. | …you want different materials/stiffness along the robot. |
-| **`example_modular_tension.json`** | The tension-mode counterpart of `example_modular`: tendons driven by **motor (force)** actuators instead of position actuators. | …you use a tension controller (force control) rather than position control. |
-| `ftdcr_v4_sysid.json` | The v4 research robot (tendon servo stiffness pinned at kp=7000). Used by the calibrated teleop scenes and as the base model the sysid pipeline (`configs/sysid/ftdcr_v4_pipeline.json`) starts from. | …you're running the sysid pipeline or the calibrated teleop configs. |
-| `ftdcr_v4_sysid_0326.json` | The committed v4 calibration — the paper's sysid figure/RMSE regenerates its model from this config. | …you're reproducing the lab's results. |
+| **`example_modular_tension.json`** | The tension-mode counterpart of `example_modular`: tendons driven by **motor (force)** actuators instead of position actuators. | …you use tendon tension controller rather than position control. |
+| `ftdcr_v4_sysid.json` | The v4 research robot used in our paper (we plan to open source that soon). Used by the calibrated teleop scenes and as the base model the sysid pipeline (`configs/sysid/ftdcr_v4_pipeline.json`) starts from. | …you're running the sysid pipeline or the calibrated configs. |
+| `ftdcr_v4_sysid_0326.json` | The committed v4 calibration — the paper's sysid figure/RMSE regenerates its model from this config. | …you're reproducing the paper's results. |
 | `ftdcr_v6_sysid.json` | The v6 research robot, used by `configs/sysid/ftdcr_v6_pipeline.json`. | |
 | `examples/…` | Demo/prop robots (e.g. `example_contact.json` for the README's kick clip). Resolved by name like any other config, but **exempt from the golden physics baseline** — top-level configs are physics-locked by `tests/unit/test_generator_golden.py`; demo configs here can be added or tweaked freely. | …you're adding a demo. |
 
