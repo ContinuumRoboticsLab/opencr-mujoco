@@ -104,22 +104,25 @@
         We collect demonstrations in simulation, train state-based imitation-learning policies, and deploy them <strong>zero-shot</strong> to the 3-segment TDCR on a Franka arm. Both clips are full, uncut rollouts at 1&times; speed.
       </p>
 
-      <!-- Large policy videos live as GitHub Release assets so cloning the
-           source repository does not pull down the website media. The small
-           poster frames remain tracked for fast page loads. -->
+      <!-- Large policy videos are downloaded from GitHub Release assets by
+           the Pages workflow so cloning the source repository stays lightweight. -->
       <div class="video-grid">
         <figure class="video-card">
-          <video src="https://github.com/ContinuumRoboticsLab/opencr-mujoco/releases/download/media-v1/all_rollouts_cylinder_task_blurred.mp4"
-                 poster="assets/compressed/all_rollouts_cylinder_task_blurred_poster.jpg"
-                 controls muted loop playsinline preload="metadata"></video>
+          <video poster="assets/compressed/all_rollouts_cylinder_task_blurred_poster.jpg"
+                 controls muted loop playsinline preload="metadata">
+            <source src="media/policies/all_rollouts_cylinder_task_blurred.mp4" type="video/mp4" />
+            <a href="media/policies/all_rollouts_cylinder_task_blurred.mp4">Download the whole-body grasping video.</a>
+          </video>
           <figcaption>
             <strong>Task 1 — Whole-body grasping.</strong> The policy must wrap the compliant body evenly around the cylinder, since uneven contact tips it over before a secure grasp.
           </figcaption>
         </figure>
         <figure class="video-card">
-          <video src="https://github.com/ContinuumRoboticsLab/opencr-mujoco/releases/download/media-v1/all_rollouts_switch_task_720p.mp4"
-                 poster="assets/compressed/all_rollouts_switch_task_720p_poster.jpg"
-                 controls muted loop playsinline preload="metadata"></video>
+          <video poster="assets/compressed/all_rollouts_switch_task_720p_poster.jpg"
+                 controls muted loop playsinline preload="metadata">
+            <source src="media/policies/all_rollouts_switch_task_720p.mp4" type="video/mp4" />
+            <a href="media/policies/all_rollouts_switch_task_720p.mp4">Download the switch-flipping video.</a>
+          </video>
           <figcaption>
             <strong>Task 2 — Flip a switch from behind.</strong> The TDCR braces against the panel to localize ~0.9&nbsp;N on the small toggle, where misalignment or an angled push makes it slip off.
           </figcaption>

@@ -1,0 +1,50 @@
+name: Deploy website
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp -R docs/. _site/
+
+          mkdir -p _site/media/policies
+
+          curl -L --fail --retry 3 \
+            -o _site/media/policies/all_rollouts_cylinder_task_blurred.mp4 \
+            "https://github.com/${GITHUB_REPOSITORY}/releases/download/media-v1/all_rollouts_cylinder_task_blurred.mp4"
+
+          curl -L --fail --retry 3 \
+            -o _site/media/policies/all_rollouts_switch_task_720p.mp4 \
+            "https://github.com/${GITHUB_REPOSITORY}/releases/download/media-v1/all_rollouts_switch_task_720p.mp4"
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
