@@ -43,7 +43,7 @@
         </a>
       </p>
       <nav class="paper-links">
-        <a href="#citation" class="btn" aria-disabled="true">Preprint coming soon</a>
+        <a href="https://arxiv.org/abs/2606.22397" class="btn btn--icon">arXiv</a>
         <a href="https://github.com/ContinuumRoboticsLab/opencr-mujoco" class="btn btn--icon">
           <span>GitHub</span>
         </a>
@@ -55,7 +55,7 @@
     </p>
 
     <section id="demo">
-      <h2>Interactive Demo</h2>
+      <h2 class="center-text">Interactive Demo</h2>
       <p>
         Pick a configuration, then click the view and use the keys shown. This browser demo runs the MuJoCo model and teleoperation stack live using WebAssembly and Pyodide.
       </p>
@@ -69,7 +69,7 @@
     </section>
 
     <section id="abstract">
-      <h2>Abstract</h2>
+      <h2 class="center-text">Abstract</h2>
       <p>
         Learning contact-rich, whole-body manipulation for soft continuum robots is held back by the lack of simulation infrastructure that has accelerated rigid-robot manipulation. Existing soft robot simulators are physically grounded but lack the contact handling, actuation support, or learning integration needed for contact-rich manipulation; rigid-body approximations offer these capabilities but sacrifice physical grounding. We bridge this gap for tendon-driven continuum robots (TDCRs) by deriving a continuum-mechanics-informed discretization that places the soft robot natively inside MuJoCo, unifying tendon forces, body contact, and dynamics in a single physics pipeline. We validate the simulator against a Cosserat rod reference (static and dynamic) and real TDCR hardware. We then train state-based imitation learning policies via teleoperation in simulation and deploy them zero-shot to a physical 3-segment TDCR on a 7-DoF Franka arm across two contact-rich manipulation tasks. To our knowledge, this is the first demonstration of sim-to-real transfer for contact-rich manipulation with continuum robots.
       </p>
@@ -83,7 +83,7 @@
     </section>
 
     <section id="contributions">
-      <h2>Contributions</h2>
+      <h2 class="center-text">Contributions</h2>
       <ol class="contribution-list">
         <li>
           <strong>Method.</strong> We derive a continuum-mechanics-informed rigid-link discretization that places TDCRs directly in MuJoCo while preserving actuation, contact, and dynamics in one physics pipeline, validated against Cosserat rod simulator and hardware.
@@ -170,18 +170,6 @@
           </figcaption>
         </figure>
       </div>
-    </section>
-
-    <section id="citation">
-      <h2>Citation</h2>
-      <pre class="bibtex"><code>
-@misc{shentu2026tdcr_mujoco,
-  title = {Do Rigid-Body Simulators Dream of Soft Robots? Learning Contact-Rich Manipulation for Tendon-Driven Continuum Robots},
-  author = {Shentu, Chengnan and Baldassini, Nicholas and Zheng, Tongjia and Rao, Priyanka and Burgner-Kahrs, Jessica},
-  year = {2026},
-  note = {Preprint in preparation}
-}
-      </code></pre>
     </section>
 
     <footer>

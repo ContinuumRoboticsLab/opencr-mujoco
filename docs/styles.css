@@ -300,6 +300,18 @@ section h2 {
   border-bottom: 1px solid var(--border);
   padding-bottom: 0.4rem;
 }
+section h2.center-text {
+  max-width: 36ch;
+  margin: 0 auto 1.35rem;
+  text-align: center;
+  font-size: 1.62rem;
+  line-height: 1.18;
+  font-weight: 700;
+  color: var(--fg);
+  border-bottom: 0;
+  padding-bottom: 0;
+  text-wrap: balance;
+}
 
 .lead { color: var(--fg-muted); margin-top: 0; }
 
@@ -537,6 +549,9 @@ select:disabled {
   }
   .section-punchline {
     font-size: 1.22rem;
+  }
+  section h2.center-text {
+  font-size: 1.22rem;
   }
   .validation-figures { max-width: none; }
   .validation-static-grid { grid-template-columns: 1fr; }
