@@ -54,7 +54,6 @@ cd opencr-mujoco
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 
-pip install -r requirements.txt
 pip install -e .                   # editable install
 pip install -e ".[dev]"            # + pytest/black/flake8
 pip install -e ".[hardware]"       # + Dynamixel SDK (real-robot bridge)
