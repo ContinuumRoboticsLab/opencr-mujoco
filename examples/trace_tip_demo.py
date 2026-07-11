@@ -205,8 +205,9 @@ def make_tdcr_demo(model, data):
         model,
         data,
         tendon_distance_mm=4.0,  # example_three_segment_franka geometry
-        velocity_scale=0.5,
-        damping_factor=0.01,
+        # high gain + damping together: tight, stable synergy-basis tracking
+        velocity_scale=2.0,
+        damping_factor=0.05,
         fps=CONTROL_FPS,
         verbose=False,
     )
@@ -277,8 +278,8 @@ def make_franka_tdcr_demo(model, data):
         data,
         tendon_distance_mm=4.5,
         angle_offset_rad_ccw=[0, -0.5236, -1.0472],
-        velocity_scale=0.65,
-        damping_factor=0.01,
+        velocity_scale=4.0,
+        damping_factor=0.05,
         fps=CONTROL_FPS,
         verbose=False,
     )

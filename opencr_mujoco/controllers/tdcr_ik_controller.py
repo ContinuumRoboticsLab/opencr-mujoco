@@ -16,6 +16,29 @@ from opencr_mujoco.tdcr_kinematics.multi_segment_tdcr_tension import (
 from .homing import step_toward
 
 
+def build_synergy_matrix(n_segments: int) -> np.ndarray:
+    """Synergy basis over the Clark DOF (order [s0X, s0Y, s1X, s1Y, ...]): per
+    bending axis, the n-1 adjacent opposing-bend differences (e_i - e_{i+1}) plus
+    the distal segment's absolute bend; 2*n_segments modes, square and invertible.
+
+    Solving the tip DLS in this basis (damping the synergy activations, not the
+    raw per-segment bends) gives every tip direction comparable authority. The raw
+    basis is ill-conditioned -- the base has several times the distal tip
+    authority -- so one damping value either lags the distal segment or goes
+    unstable at the base. n_segments == 1 reduces to the identity (raw fallback).
+    """
+    m = np.zeros((2 * n_segments, 2 * n_segments))
+    col = 0
+    for axis in range(2):  # 0 = X bending, 1 = Y bending
+        for i in range(n_segments - 1):
+            m[2 * i + axis, col] = 1.0
+            m[2 * (i + 1) + axis, col] = -1.0
+            col += 1
+        m[2 * (n_segments - 1) + axis, col] = 1.0
+        col += 1
+    return m
+
+
 class TDCRIKController:
     """Task-space controller for TDCR using Jacobian-based IK.
 
@@ -42,6 +65,7 @@ class TDCRIKController:
         rotation_boost: float = 1000.0,
         jacobian_cols_per_refresh: int = 2,
         contact_settle_horizon_s: float = None,
+        synergy_basis: bool = True,
     ):
         """Initialize TDCR task-space controller.
 
@@ -82,6 +106,9 @@ class TDCRIKController:
                 control wants a longer value (~0.3 s) for an accurate contact
                 Jacobian; stiff position control gains nothing (it settles fast
                 but is capped by its own contact chatter) so it leaves this None.
+            synergy_basis: If True (default), solve the tip DLS in the synergy
+                basis (build_synergy_matrix) rather than the ill-conditioned raw
+                per-segment basis; needed for crisp multi-segment tip tracking.
         """
         self.model = model
         self.data = data
@@ -92,6 +119,7 @@ class TDCRIKController:
         self.verbose = verbose
         self.clark_direct_scale = clark_direct_scale
         self.tension_mode = tension_mode
+        self.synergy_basis = synergy_basis
 
         # Live-Jacobian estimation knobs
         self.jacobian_refresh_hz = jacobian_refresh_hz  # kept for config/log compat
@@ -212,14 +240,19 @@ class TDCRIKController:
             mujoco.mj_step(self.model, self.data)
 
         # Initialize Jacobian computation variables. Columns are the RAW Clark
-        # coordinates (2 per segment: X/Y bending), one column per DOF. This
-        # per-segment basis (vs the old coupled S12/S23/S13 synergies) lets a
-        # proximal control point actuate only its own + more-proximal segments,
-        # so controlling, e.g., the segment-1 tip never bends segments 2-3.
+        # coordinates (2 per segment: X/Y bending), one column per DOF -- the
+        # multi-point controllers mask distal columns, so a proximal control point
+        # only actuates its own + more-proximal segments. (The tip DLS separately
+        # solves in the synergy basis; see build_synergy_matrix.)
         self.n_clark = len(self.kinematics.goal_clark_coords)  # 2 * n_segments
         self.jacobian_pos = np.zeros((3, self.n_clark))  # d(tip_pos)/d(clark_i)
         self.jacobian_rot = np.zeros((3, self.n_clark))  # d(tip_rot)/d(clark_i)
         self.jacobian_full = np.zeros((6, self.n_clark))
+
+        # Synergy basis for the tip DLS (build_synergy_matrix); None = raw basis.
+        self._synergy_M = (
+            build_synergy_matrix(self.n_clark // 2) if self.synergy_basis else None
+        )
 
         # Compute initial Jacobian with actual stepping for accuracy
         # Now the robot is in S-shape, so Jacobian should be better
@@ -722,6 +755,31 @@ class TDCRIKController:
         """Compute quaternion conjugate."""
         return np.array([q[0], -q[1], -q[2], -q[3]])
 
+    def _solve_clark_dls(self, J: np.ndarray, v_desired: np.ndarray) -> np.ndarray:
+        """Damped least-squares for Clark velocities. With the synergy basis M
+        (default) damp the synergy activations and map back (clark_vel = M y);
+        otherwise damp the raw per-segment bends directly."""
+        if self._synergy_M is not None:
+            M = self._synergy_M
+            Js = J @ M
+            A = Js.T @ Js + self.damping_factor * np.eye(M.shape[1])
+            try:
+                y = np.linalg.solve(A, Js.T @ v_desired)
+            except np.linalg.LinAlgError:
+                if self.verbose:
+                    print("Warning: Singular matrix in IK, using SVD")
+                y = np.linalg.pinv(Js, rcond=self.damping_factor) @ v_desired
+            return M @ y
+
+        JtJ = J.T @ J
+        damped_JtJ = JtJ + self.damping_factor * np.eye(self.n_clark)
+        try:
+            return np.linalg.solve(damped_JtJ, J.T @ v_desired)
+        except np.linalg.LinAlgError:
+            if self.verbose:
+                print("Warning: Singular matrix in IK, using SVD")
+            return np.linalg.pinv(J, rcond=self.damping_factor) @ v_desired
+
     def compute_target_qpos(
         self, command: Dict[str, float], data: Optional[mujoco.MjData] = None
     ) -> np.ndarray:
@@ -822,19 +880,8 @@ class TDCRIKController:
         v_desired[:3] *= position_weight
         v_desired[3:] *= orientation_weight
 
-        # Damped least squares over the per-segment Clark DOF. The plain TDCR
-        # controller drives the tip, so all Clark DOF are active.
-        JtJ = J.T @ J
-        Jt_v = J.T @ v_desired
-        damped_JtJ = JtJ + self.damping_factor * np.eye(self.n_clark)
-
-        # Solve for Clark velocities directly (columns are per-Clark-DOF now)
-        try:
-            clark_velocities = np.linalg.solve(damped_JtJ, Jt_v)
-        except np.linalg.LinAlgError:
-            if self.verbose:
-                print("Warning: Singular matrix in IK, using SVD")
-            clark_velocities = np.linalg.pinv(J, rcond=self.damping_factor) @ v_desired
+        # Damped least squares over the Clark DOF (synergy basis by default).
+        clark_velocities = self._solve_clark_dls(J, v_desired)
 
         # Scale by time step
         clark_increment = clark_velocities * self.dt
